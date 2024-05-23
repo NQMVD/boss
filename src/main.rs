@@ -1,11 +1,51 @@
+use cliclack::{intro, log, outro, set_theme, spinner, Theme};
+use console::style;
 use std::process::{Command, Stdio};
 
-fn main() {
+struct MyTheme;
+
+impl Theme for MyTheme {
+    // fn info_symbol(&self) -> String {
+    //     // info symbol
+    //     "".into()
+    // }
+
+    // fn active_symbol(&self) -> String {
+    //     // success symbol
+    //     "".into()
+    // }
+
+    // fn error_symbol(&self) -> String {
+    //     // error symbol
+    //     "".into()
+    // }
+
+    fn spinner_chars(&self) -> String {
+        "".to_string()
+    }
+}
+
+struct Result {
+    manager: String,
+    package: String,
+    version: String,
+    info: String,
+    status: String,
+}
+
+fn main() -> std::io::Result<()> {
     let args: Vec<String> = std::env::args().collect();
     if args.len() != 2 {
         println!("Usage: {} <package_name>", args[0]);
-        return;
+        return Err(std::io::Error::new(
+            std::io::ErrorKind::InvalidInput,
+            "Invalid input, needs a package name as argument",
+        ));
     }
+
+    set_theme(MyTheme);
+    println!();
+    intro(style(" peo ").on_cyan().black())?;
 
     let package_name = &args[1];
     let managers = vec!["apt", "yay", "go", "cargo"];
@@ -27,10 +67,10 @@ fn main() {
         }
     }
 
-    println!(
-        "Installed package managers: {}",
-        installed_managers.join(", ")
-    );
+    log::remark(format!("Managers: {}", installed_managers.join(", ")))?;
+
+    let spinner = spinner();
+    spinner.start("Fetching...");
 
     let mut results = vec![];
     for manager in &installed_managers {
@@ -53,19 +93,37 @@ fn main() {
 
                         if package_name == name {
                             if line.contains("Installed") {
-                                results.push(format!(
-                                    "I -   yay: {} {} [installed]",
-                                    fullname, version
-                                ));
+                                results.push(Result {
+                                    manager: "yay".to_string(),
+                                    package: fullname.to_string(),
+                                    version: version.to_string(),
+                                    info: _repo.to_string(),
+                                    status: "installed".to_string(),
+                                })
                             } else {
-                                results.push(format!("A -   yay: {} {}", fullname, version));
+                                results.push(Result {
+                                    manager: "yay".to_string(),
+                                    package: fullname.to_string(),
+                                    version: version.to_string(),
+                                    info: _repo.to_string(),
+                                    status: "available".to_string(),
+                                })
                             }
                         } else {
-                            results.push(format!("X -   yay: {} != {}", package_name, fullname));
+                            results.push(Result {
+                                manager: "yay".to_string(),
+                                package: package_name.to_string(),
+                                version: "".to_string(),
+                                info: "".to_string(),
+                                status: "not found".to_string(),
+                            })
                         }
                     }
                 }
-                Err(_) => results.push(format!("Error running command for {}", manager)),
+                Err(_) => {
+                    log::error(format!("yay failed!"))?;
+                    spinner.error("yay failed!");
+                }
             },
             "go" => {
                 // only installed packages, go doesnt have a search command
@@ -96,19 +154,24 @@ fn main() {
                                 let repo = fullnamesplit.collect::<Vec<_>>().join("/");
 
                                 if package_name == name {
-                                    results.push(format!(
-                                        "I -    go: {} ({}) [installed]",
-                                        name, repo
-                                    ));
+                                    results.push(Result {
+                                        manager: "go".to_string(),
+                                        package: fullname.to_string(),
+                                        version: "".to_string(),
+                                        info: repo.to_string(),
+                                        status: "installed".to_string(),
+                                    })
                                 }
                             }
                         } else {
-                            println!("stdout is empty!");
+                            log::error(format!("go failed! stdout is empty..."))?;
+                            spinner.error("go failed! stdout is empty...");
                             println!("{:?}", output);
                         }
                     }
                     Err(_) => {
-                        results.push(format!("Error running 'install --list' for {}", manager))
+                        log::error(format!("go failed!"))?;
+                        spinner.error("go failed!");
                     }
                 }
             }
@@ -131,17 +194,21 @@ fn main() {
                                 let version = chunks.next().unwrap();
 
                                 if package_name == name {
-                                    results.push(format!(
-                                        "I - cargo: {} {} [installed]",
-                                        name, version
-                                    ));
+                                    results.push(Result {
+                                        manager: "cargo".to_string(),
+                                        package: name.to_string(),
+                                        version: version.to_string(),
+                                        info: "".to_string(),
+                                        status: "installed".to_string(),
+                                    });
                                     installed = true;
                                 }
                             }
                         }
                     }
                     Err(_) => {
-                        results.push(format!("Error running 'install --list' for {}", manager))
+                        log::error(format!("cargo list failed!"))?;
+                        spinner.error("cargo list failed!");
                     }
                 }
 
@@ -165,19 +232,28 @@ fn main() {
                                 let description = chunks.collect::<Vec<_>>().join(" ");
 
                                 if package_name == name {
-                                    results.push(format!(
-                                        "A - cargo: {} {} {}",
-                                        name, version, description
-                                    ));
+                                    results.push(Result {
+                                        manager: "cargo".to_string(),
+                                        package: name.to_string(),
+                                        version: version.to_string(),
+                                        info: description.to_string(),
+                                        status: "available".to_string(),
+                                    });
                                 } else {
-                                    results.push(format!(
-                                        "X - cargo: {} != {} {}",
-                                        package_name, name, description
-                                    ));
+                                    results.push(Result {
+                                        manager: "cargo".to_string(),
+                                        package: package_name.to_string(),
+                                        version: "".to_string(),
+                                        info: "".to_string(),
+                                        status: "not found".to_string(),
+                                    });
                                 }
                             }
                         }
-                        Err(_) => results.push(format!("Error running 'search' for {}", manager)),
+                        Err(_) => {
+                            log::error(format!("cargo search failed!"))?;
+                            spinner.error("cargo search failed!");
+                        }
                     }
                 }
             }
@@ -185,8 +261,62 @@ fn main() {
         }
     }
 
-    println!("\nResults:");
-    for result in results.iter() {
-        println!("{}", result);
+    spinner.stop("Results:");
+
+    for result in results {
+        if result.manager == "yay" {
+            if result.status == "installed" {
+                log::success(format!(
+                    "[installed] -   yay: {} ({})",
+                    result.package, result.version
+                ))?;
+            } else if result.status == "available" {
+                log::info(format!(
+                    "[available] -   yay: {} ({})",
+                    result.package, result.version
+                ))?;
+            } else if result.status == "not found" {
+                log::error(format!("[not found] -   yay: {} ", result.package))?;
+            }
+        } else if result.manager == "go" {
+            if result.status == "installed" {
+                log::success(format!(
+                    "[installed] -    go: {} ({})",
+                    result.package, result.version
+                ))?;
+            } else if result.status == "available" {
+                log::info(format!(
+                    "[available] -    go: {} ({})",
+                    result.package, result.version
+                ))?;
+            } else if result.status == "not found" {
+                log::error(format!("[not found] -    go: {} ", result.package))?;
+            }
+        } else if result.manager == "cargo" {
+            if result.status == "installed" {
+                log::success(format!(
+                    "[installed] - cargo: {} ({})",
+                    result.package, result.version
+                ))?;
+            } else if result.status == "available" {
+                // log::info(format!(
+                //     "[available] - cargo: {} ({})",
+                //     result.package, result.version
+                // ))?;
+                cliclack::note(
+                    format!(
+                        "[available] - cargo: {} ({})",
+                        result.package, result.version
+                    ),
+                    result.info,
+                )?;
+            } else if result.status == "not found" {
+                log::error(format!("[not found] - cargo: {} ", result.package))?;
+            }
+        }
     }
+
+    outro("Done!")?;
+
+    Ok(())
 }
