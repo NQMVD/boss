@@ -25,12 +25,59 @@ impl Theme for MyTheme {
     }
 }
 
+// struct Result<'a> {
+//     manager: &'a str,
+//     package: &'a str,
+//     version: &'a str,
+//     info: &'a str,
+//     status: &'a str,
+// }
+
+// impl<'a> Result<'a> {
+//     fn new(
+//         manager: &'a str,
+//         package: &'a str,
+//         version: &'a str,
+//         info: &'a str,
+//         status: &'a str,
+//     ) -> Self {
+//         Self {
+//             manager,
+//             package,
+//             version,
+//             info,
+//             status,
+//         }
+//     }
+// }
+
 struct Result {
-    manager: String,
+    manager: &'static str,
     package: String,
     version: String,
     info: String,
+    repo: String,
     status: String,
+}
+
+impl Result {
+    fn new(
+        manager: &'static str,
+        package: &str,
+        version: &str,
+        info: &str,
+        repo: &str,
+        status: &str,
+    ) -> Self {
+        Result {
+            manager,
+            package: package.to_string(),
+            version: version.to_string(),
+            info: info.to_string(),
+            repo: repo.to_string(),
+            status: status.to_string(),
+        }
+    }
 }
 
 fn main() -> std::io::Result<()> {
@@ -79,49 +126,44 @@ fn main() -> std::io::Result<()> {
             "yay" => match Command::new("yay").arg("-Ss").arg(package_name).output() {
                 Ok(output) => {
                     if !output.stdout.is_empty() {
-                        let stdout: Vec<u8> = output.stdout;
-                        let stdout_string = String::from_utf8(stdout).unwrap();
-                        let mut lines = stdout_string.split('\n');
-                        let count = lines.clone().count();
-                        let line = lines.nth(count - 3).unwrap();
-                        let mut chunks = line.split_whitespace();
-                        let fullname = chunks.next().unwrap();
-                        let mut fullnamesplit = fullname.split('/');
-                        let _repo = fullnamesplit.next().unwrap();
-                        let name = fullnamesplit.next().unwrap();
-                        let version = chunks.next().unwrap();
+                        if let Ok(stdout_str) = std::str::from_utf8(&output.stdout) {
+                            let mut lines = stdout_str.split('\n');
+                            if let Some(line) = lines.nth_back(2) {
+                                let mut chunks = line.split_whitespace();
+                                if let Some(fullname) = chunks.next() {
+                                    if let Some((repo, name)) = fullname.split_once('/') {
+                                        if let Some(version) = chunks.next() {
+                                            if name == package_name {
+                                                let status = if line.contains("Installed") {
+                                                    "installed"
+                                                } else {
+                                                    "available"
+                                                };
 
-                        if package_name == name {
-                            if line.contains("Installed") {
-                                results.push(Result {
-                                    manager: "yay".to_string(),
-                                    package: fullname.to_string(),
-                                    version: version.to_string(),
-                                    info: _repo.to_string(),
-                                    status: "installed".to_string(),
-                                })
-                            } else {
-                                results.push(Result {
-                                    manager: "yay".to_string(),
-                                    package: fullname.to_string(),
-                                    version: version.to_string(),
-                                    info: _repo.to_string(),
-                                    status: "available".to_string(),
-                                })
+                                                results.push(Result::new(
+                                                    "yay", fullname, version, "", repo, status,
+                                                ));
+                                            } else {
+                                                results.push(Result::new(
+                                                    "yay",
+                                                    package_name,
+                                                    "",
+                                                    "",
+                                                    "",
+                                                    "not found",
+                                                ));
+                                            }
+                                        }
+                                    }
+                                }
                             }
-                        } else {
-                            results.push(Result {
-                                manager: "yay".to_string(),
-                                package: package_name.to_string(),
-                                version: "".to_string(),
-                                info: "".to_string(),
-                                status: "not found".to_string(),
-                            })
                         }
+                    } else {
+                        results.push(Result::new("yay", package_name, "", "", "", "not found"));
                     }
                 }
                 Err(_) => {
-                    log::error(format!("yay failed!"))?;
+                    log::error("yay failed!")?;
                     spinner.error("yay failed!");
                 }
             },
@@ -137,31 +179,57 @@ fn main() -> std::io::Result<()> {
                 {
                     Ok(output) => {
                         if !output.stdout.is_empty() {
-                            let stdout: Vec<u8> = output.stdout;
-                            let stdout_string = String::from_utf8(stdout).unwrap();
-                            let lines = stdout_string.split('\n');
+                            if let Ok(stdout_str) = std::str::from_utf8(&output.stdout) {
+                                stdout_str
+                                    .split('\n')
+                                    .filter(|line| line.contains("path") && !line.is_empty())
+                                    .for_each(|line| {
+                                        let mut chunks = line.split_whitespace();
+                                        chunks.next();
+                                        if let Some(fullname) = chunks.next() {
+                                            let mut fullnamesplit = fullname.split('/');
+                                            fullnamesplit.next();
+                                            if let Some(name) = fullnamesplit.clone().last() {
+                                                let repo =
+                                                    fullnamesplit.collect::<Vec<_>>().join("/");
 
-                            let filtered_lines: Vec<&str> = lines
-                                .filter(|line| line.contains("path") && !line.is_empty())
-                                .collect();
-                            for line in &filtered_lines {
-                                let mut chunks = line.split_whitespace();
-                                chunks.next();
-                                let fullname = chunks.next().unwrap();
-                                let mut fullnamesplit = fullname.split('/');
-                                fullnamesplit.next();
-                                let name = fullnamesplit.clone().last().unwrap();
-                                let repo = fullnamesplit.collect::<Vec<_>>().join("/");
+                                                if package_name == name {
+                                                    results.push(Result::new(
+                                                        "go",
+                                                        fullname,
+                                                        "",
+                                                        "",
+                                                        repo.as_str(),
+                                                        "installed",
+                                                    ));
+                                                }
+                                            }
+                                        }
+                                    });
 
-                                if package_name == name {
-                                    results.push(Result {
-                                        manager: "go".to_string(),
-                                        package: fullname.to_string(),
-                                        version: "".to_string(),
-                                        info: repo.to_string(),
-                                        status: "installed".to_string(),
-                                    })
-                                }
+                                // let mut lines = stdout_str.split('\n');
+                                // let filtered_lines: Vec<&str> = lines
+                                //     .filter(|line| line.contains("path") && !line.is_empty())
+                                //     .collect();
+                                // for line in &filtered_lines {
+                                //     let mut chunks = line.split_whitespace();
+                                //     chunks.next();
+                                //     let fullname = chunks.next().unwrap();
+                                //     let mut fullnamesplit = fullname.split('/');
+                                //     fullnamesplit.next();
+                                //     let name = fullnamesplit.clone().last().unwrap();
+                                //     let repo = fullnamesplit.collect::<Vec<_>>().join("/");
+
+                                //     if package_name == name {
+                                //         results.push(Result::new(
+                                //             "go",
+                                //             fullname,
+                                //             "",
+                                //             "",
+                                //             repo.as_str(),
+                                //             "installed",
+                                //         ));
+                                //     }
                             }
                         } else {
                             log::error(format!("go failed! stdout is empty..."))?;
@@ -194,13 +262,14 @@ fn main() -> std::io::Result<()> {
                                 let version = chunks.next().unwrap();
 
                                 if package_name == name {
-                                    results.push(Result {
-                                        manager: "cargo".to_string(),
-                                        package: name.to_string(),
-                                        version: version.to_string(),
-                                        info: "".to_string(),
-                                        status: "installed".to_string(),
-                                    });
+                                    results.push(Result::new(
+                                        "cargo",
+                                        name,
+                                        version,
+                                        "",
+                                        "",
+                                        "installed",
+                                    ));
                                     installed = true;
                                 }
                             }
@@ -232,21 +301,23 @@ fn main() -> std::io::Result<()> {
                                 let description = chunks.collect::<Vec<_>>().join(" ");
 
                                 if package_name == name {
-                                    results.push(Result {
-                                        manager: "cargo".to_string(),
-                                        package: name.to_string(),
-                                        version: version.to_string(),
-                                        info: description.to_string(),
-                                        status: "available".to_string(),
-                                    });
+                                    results.push(Result::new(
+                                        "cargo",
+                                        name,
+                                        version,
+                                        description.as_str(),
+                                        "",
+                                        "available",
+                                    ));
                                 } else {
-                                    results.push(Result {
-                                        manager: "cargo".to_string(),
-                                        package: package_name.to_string(),
-                                        version: "".to_string(),
-                                        info: "".to_string(),
-                                        status: "not found".to_string(),
-                                    });
+                                    results.push(Result::new(
+                                        "cargo",
+                                        package_name,
+                                        "",
+                                        "",
+                                        "",
+                                        "not found",
+                                    ));
                                 }
                             }
                         }
