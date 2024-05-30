@@ -247,90 +247,27 @@ fn check_go(package_name: &str) -> Result<PackageResult, String> {
         }
     }
     Result::Ok(PackageResult::none("go", package_name))
-
-    // let mut lines = stdout_str.split('\n');
-    // let filtered_lines: Vec<&str> = lines
-    //     .filter(|line| line.contains("path") && !line.is_empty())
-    //     .collect();
-    // for line in &filtered_lines {
-    //     let mut chunks = line.split_whitespace();
-    //     chunks.next();
-    //     let fullname = chunks.next().unwrap();
-    //     let mut fullnamesplit = fullname.split('/');
-    //     fullnamesplit.next();
-    //     let name = fullnamesplit.clone().last().unwrap();
-    //     let repo = fullnamesplit.collect::<Vec<_>>().join("/");
-
-    //     if package_name == name {
-    //         results.push(Result::new(
-    //             "go",
-    //             fullname,
-    //             "",
-    //             "",
-    //             repo.as_str(),
-    //             "installed",
-    //         ));
-    //     }
-    // }
 }
 
-fn main() -> std::io::Result<()> {
-    let args: Vec<String> = std::env::args().collect();
-    if args.len() != 2 {
-        println!("Usage: {} <package_name>", args[0]);
-        return Err(std::io::Error::new(
-            std::io::ErrorKind::InvalidInput,
-            "Invalid input, needs a package name as argument",
-        ));
-    }
+// fn parse_package(package_name: &str) -> Result<PackageResult, String> {
+//     let mut result = check_apt(package_name);
+//     if result.is_none() {
+//         result = check_pacman(package_name);
+//     }
+//     if result.is_none() {
+//         result = check_yay(package_name);
+//     }
+//     if result.is_none() {
+//         result = check_cargo(package_name);
+//     }
+//     if result.is_none() {
+//         result = check_go(package_name);
+//     }
 
-    set_theme(MyTheme);
-    println!();
-    intro(style(" peo ").on_cyan().black())?;
+//     result
+// }
 
-    let package_name = &args[1];
-    let installed_managers = get_installed_managers();
-
-    log::remark(format!("Managers: {}", installed_managers.join(", ")))?;
-
-    let spinner = spinner();
-    spinner.start("Fetching...");
-
-    let mut results = vec![];
-    for manager in &installed_managers {
-        match *manager {
-            "apt" => {}
-            "yay" => match check_yay(package_name) {
-                Ok(result) => results.push(result),
-                Err(e) => {
-                    spinner.error(&e);
-                    log::error(e)?;
-                }
-            },
-            "go" => {
-                // only installed packages, go doesnt have a search command
-                // TODO: create one?
-                match check_go(package_name) {
-                    Ok(result) => results.push(result),
-                    Err(e) => {
-                        spinner.error(&e);
-                        log::error(e)?;
-                    }
-                }
-            }
-            "cargo" => match check_cargo(package_name) {
-                Ok(result) => results.push(result),
-                Err(e) => {
-                    spinner.error(&e);
-                    log::error(e)?;
-                }
-            },
-            &_ => todo!(),
-        }
-    }
-
-    spinner.stop("Results:");
-
+fn print_result(results: Vec<PackageResult>) -> core::result::Result<(), std::io::Error> {
     for result in results {
         if result.manager == "yay" {
             if result.status == "installed" {
@@ -383,6 +320,67 @@ fn main() -> std::io::Result<()> {
             }
         }
     }
+
+    Ok(())
+}
+
+fn main() -> std::io::Result<()> {
+    let args: Vec<String> = std::env::args().collect();
+    if args.len() != 2 {
+        println!("Usage: {} <package_name>", args[0]);
+        return Err(std::io::Error::new(
+            std::io::ErrorKind::InvalidInput,
+            "Invalid input, needs a package name as argument",
+        ));
+    }
+
+    set_theme(MyTheme);
+    println!();
+    intro(style(" peo ").on_cyan().black())?;
+
+    let package_name = &args[1];
+    let installed_managers = get_installed_managers();
+
+    log::remark(format!("Managers: {}", installed_managers.join(", ")))?;
+
+    let spinner = spinner();
+    spinner.start("Fetching...");
+
+    let mut results = vec![];
+    for manager in &installed_managers {
+        match *manager {
+            "apt" => {}
+            "yay" => match check_yay(package_name) {
+                Ok(result) => results.push(result),
+                Err(e) => {
+                    spinner.error(&e);
+                    log::error(e)?;
+                }
+            },
+            "go" => {
+                // only installed packages, go doesnt have a search command. (yet)
+                match check_go(package_name) {
+                    Ok(result) => results.push(result),
+                    Err(e) => {
+                        spinner.error(&e);
+                        log::error(e)?;
+                    }
+                }
+            }
+            "cargo" => match check_cargo(package_name) {
+                Ok(result) => results.push(result),
+                Err(e) => {
+                    spinner.error(&e);
+                    log::error(e)?;
+                }
+            },
+            &_ => todo!(),
+        }
+    }
+
+    spinner.stop("Results:");
+
+    print_result(results)?;
 
     outro("Done!")?;
 
