@@ -25,59 +25,253 @@ impl Theme for MyTheme {
     }
 }
 
-// struct Result<'a> {
-//     manager: &'a str,
-//     package: &'a str,
-//     version: &'a str,
-//     info: &'a str,
-//     status: &'a str,
-// }
-
-// impl<'a> Result<'a> {
-//     fn new(
-//         manager: &'a str,
-//         package: &'a str,
-//         version: &'a str,
-//         info: &'a str,
-//         status: &'a str,
-//     ) -> Self {
-//         Self {
-//             manager,
-//             package,
-//             version,
-//             info,
-//             status,
-//         }
-//     }
-// }
-
-struct Result {
-    manager: &'static str,
-    package: String,
-    version: String,
-    info: String,
-    repo: String,
-    status: String,
+struct PackageResult {
+    manager: String, // apt, yay, go, cargo
+    package: String, // name only
+    version: String, // version
+    desc: String,    // description
+    repo: String,    // repo, for yay it's the repo (for go it's the module path?)
+    status: String,  // installed, available, not found
 }
 
-impl Result {
+impl PackageResult {
     fn new(
-        manager: &'static str,
+        manager: &str,
         package: &str,
-        version: &str,
-        info: &str,
-        repo: &str,
         status: &str,
+        version: &str,
+        desc: &str,
+        repo: &str,
     ) -> Self {
-        Result {
-            manager,
+        PackageResult {
+            manager: manager.to_string(),
             package: package.to_string(),
-            version: version.to_string(),
-            info: info.to_string(),
-            repo: repo.to_string(),
             status: status.to_string(),
+            version: version.to_string(),
+            desc: desc.to_string(),
+            repo: repo.to_string(),
         }
     }
+
+    fn none(manager: &str, package: &str) -> Self {
+        PackageResult {
+            manager: manager.to_string(),
+            package: package.to_string(),
+            status: "not found".to_string(),
+            version: "".to_string(),
+            desc: "".to_string(),
+            repo: "".to_string(),
+        }
+    }
+}
+
+fn get_installed_managers() -> Vec<&'static str> {
+    let managers = vec!["apt", "yay", "go", "cargo"];
+    let mut installed_managers = Vec::new();
+
+    for manager in &managers {
+        match Command::new("which")
+            .arg(manager)
+            .stdout(Stdio::null())
+            .stderr(Stdio::null())
+            .status()
+        {
+            Ok(status) => {
+                if status.success() {
+                    installed_managers.push(*manager)
+                }
+            }
+            Err(_) => {}
+        }
+    }
+
+    installed_managers
+}
+
+fn check_yay(package_name: &str) -> Result<PackageResult, String> {
+    let output = Command::new("yay")
+        .arg("-Ss")
+        .arg(package_name)
+        .output()
+        .expect("CUSTOM ERROR: failed to execute yay -Ss <package_name>");
+
+    if !output.stdout.is_empty() {
+        let stdout_str =
+            std::str::from_utf8(&output.stdout).expect("CUSTOM ERROR: failed to parse stdout");
+        let mut lines = stdout_str.split('\n');
+        let line = lines.nth_back(2).expect("CUSTOM ERROR: failed to get line");
+        let mut chunks = line.split_whitespace();
+        let fullname = chunks.next().expect("CUSTOM ERROR: failed to get fullname");
+        let (repo, name) = fullname
+            .split_once('/')
+            .expect("CUSTOM ERROR: failed to split fullname");
+        let version = chunks.next().expect("CUSTOM ERROR: failed to get version");
+
+        if name == package_name {
+            let status = if line.contains("Installed") {
+                "installed"
+            } else {
+                "available"
+            };
+
+            return Result::Ok(PackageResult::new(
+                "yay", fullname, status, version, "", repo,
+            ));
+        } else {
+            return Result::Ok(PackageResult::none("yay", package_name));
+        }
+    }
+
+    Result::Ok(PackageResult::none("yay", package_name))
+}
+
+fn check_cargo(package_name: &str) -> Result<PackageResult, String> {
+    let mut installed = false;
+
+    // TODO: change this to read the ~/.cargo/.crates.toml file
+    let output = Command::new("cargo")
+        .arg("install")
+        .arg("--list")
+        .output()
+        .expect("CUSTOM ERROR: failed to execute cargo install --list");
+
+    if !output.stdout.is_empty() {
+        let stdout: Vec<u8> = output.stdout;
+        let stdout_string = String::from_utf8(stdout).unwrap();
+        let lines = stdout_string.split('\n');
+
+        let filtered_lines: Vec<&str> = lines
+            .filter(|line| !line.starts_with(' ') && !line.is_empty())
+            .collect();
+        for line in &filtered_lines {
+            let mut chunks = line.split_whitespace();
+            let name = chunks.next().unwrap();
+
+            let mut chars = chunks.next().unwrap().chars();
+            chars.next_back();
+            let version = chars.as_str();
+
+            if package_name == name {
+                installed = true;
+                return Result::Ok(PackageResult::new(
+                    "cargo",
+                    name,
+                    "installed",
+                    version,
+                    "",
+                    "",
+                ));
+            }
+        }
+    }
+
+    // check if availlable if not installed
+    if !installed {
+        let output = Command::new("cargo")
+            .arg("search")
+            .arg(package_name)
+            .output()
+            .expect("CUSTOM ERROR: failed to execute cargo search <package_name>");
+
+        if !output.stdout.is_empty() {
+            let stdout: Vec<u8> = output.stdout;
+            let stdout_string = String::from_utf8(stdout).unwrap();
+            let mut lines = stdout_string.split('\n');
+            let line = lines.next().unwrap();
+            let mut chunks = line.split_whitespace();
+            let name = chunks.next().unwrap();
+            chunks.next();
+            let mut chars = chunks.next().unwrap().chars();
+            chars.next();
+            chars.next_back();
+            let version = chars.as_str();
+            let description = chunks.collect::<Vec<_>>().join(" ");
+
+            if package_name == name {
+                return Result::Ok(PackageResult::new(
+                    "cargo",
+                    name,
+                    "available",
+                    version,
+                    description.as_str(),
+                    "",
+                ));
+            } else {
+                return Result::Ok(PackageResult::none("cargo", package_name));
+            }
+        }
+    }
+
+    Result::Ok(PackageResult::none("cargo", package_name))
+}
+
+fn check_go(package_name: &str) -> Result<PackageResult, String> {
+    let output = Command::new("go")
+        .arg("version")
+        .arg("-m")
+        .arg("/home/noah/go/bin")
+        .output()
+        .expect("CUSTOM ERROR: failed to execute go list -m -u <package_name>");
+
+    if !output.stdout.is_empty() {
+        let stdout: Vec<u8> = output.stdout;
+        let stdout_string = String::from_utf8(stdout).unwrap();
+
+        let filtered_lines = stdout_string
+            .split('\n')
+            .filter(|line| line.contains("path") && !line.is_empty())
+            .collect::<Vec<_>>();
+
+        for line in &filtered_lines {
+            let mut chunks = line.split_whitespace();
+            chunks.next();
+            let fullname = chunks.next().expect("CUSTOM ERROR: failed to get fullname");
+            let mut fullnamesplit = fullname.split('/');
+            fullnamesplit.next();
+            let name = fullnamesplit
+                .clone()
+                .last()
+                .expect("CUSTOM ERROR: failed to get name");
+            let repo = fullnamesplit.collect::<Vec<_>>().join("/");
+
+            if package_name == name {
+                return Result::Ok(PackageResult::new(
+                    "go",
+                    fullname,
+                    "installed",
+                    "",
+                    "",
+                    repo.as_str(),
+                ));
+            }
+        }
+    }
+    Result::Ok(PackageResult::none("go", package_name))
+
+    // let mut lines = stdout_str.split('\n');
+    // let filtered_lines: Vec<&str> = lines
+    //     .filter(|line| line.contains("path") && !line.is_empty())
+    //     .collect();
+    // for line in &filtered_lines {
+    //     let mut chunks = line.split_whitespace();
+    //     chunks.next();
+    //     let fullname = chunks.next().unwrap();
+    //     let mut fullnamesplit = fullname.split('/');
+    //     fullnamesplit.next();
+    //     let name = fullnamesplit.clone().last().unwrap();
+    //     let repo = fullnamesplit.collect::<Vec<_>>().join("/");
+
+    //     if package_name == name {
+    //         results.push(Result::new(
+    //             "go",
+    //             fullname,
+    //             "",
+    //             "",
+    //             repo.as_str(),
+    //             "installed",
+    //         ));
+    //     }
+    // }
 }
 
 fn main() -> std::io::Result<()> {
@@ -95,24 +289,7 @@ fn main() -> std::io::Result<()> {
     intro(style(" peo ").on_cyan().black())?;
 
     let package_name = &args[1];
-    let managers = vec!["apt", "yay", "go", "cargo"];
-    let mut installed_managers = Vec::new();
-
-    for manager in &managers {
-        match Command::new("which")
-            .arg(manager)
-            .stdout(Stdio::null())
-            .stderr(Stdio::null())
-            .status()
-        {
-            Ok(status) => {
-                if status.success() {
-                    installed_managers.push(*manager)
-                }
-            }
-            Err(_) => todo!(),
-        }
-    }
+    let installed_managers = get_installed_managers();
 
     log::remark(format!("Managers: {}", installed_managers.join(", ")))?;
 
@@ -123,211 +300,31 @@ fn main() -> std::io::Result<()> {
     for manager in &installed_managers {
         match *manager {
             "apt" => {}
-            "yay" => match Command::new("yay").arg("-Ss").arg(package_name).output() {
-                Ok(output) => {
-                    if !output.stdout.is_empty() {
-                        if let Ok(stdout_str) = std::str::from_utf8(&output.stdout) {
-                            let mut lines = stdout_str.split('\n');
-                            if let Some(line) = lines.nth_back(2) {
-                                let mut chunks = line.split_whitespace();
-                                if let Some(fullname) = chunks.next() {
-                                    if let Some((repo, name)) = fullname.split_once('/') {
-                                        if let Some(version) = chunks.next() {
-                                            if name == package_name {
-                                                let status = if line.contains("Installed") {
-                                                    "installed"
-                                                } else {
-                                                    "available"
-                                                };
-
-                                                results.push(Result::new(
-                                                    "yay", fullname, version, "", repo, status,
-                                                ));
-                                            } else {
-                                                results.push(Result::new(
-                                                    "yay",
-                                                    package_name,
-                                                    "",
-                                                    "",
-                                                    "",
-                                                    "not found",
-                                                ));
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    } else {
-                        results.push(Result::new("yay", package_name, "", "", "", "not found"));
-                    }
-                }
-                Err(_) => {
-                    log::error("yay failed!")?;
-                    spinner.error("yay failed!");
+            "yay" => match check_yay(package_name) {
+                Ok(result) => results.push(result),
+                Err(e) => {
+                    spinner.error(&e);
+                    log::error(e)?;
                 }
             },
             "go" => {
                 // only installed packages, go doesnt have a search command
                 // TODO: create one?
-
-                match Command::new("go")
-                    .arg("version")
-                    .arg("-m")
-                    .arg("/home/noah/go/bin")
-                    .output()
-                {
-                    Ok(output) => {
-                        if !output.stdout.is_empty() {
-                            if let Ok(stdout_str) = std::str::from_utf8(&output.stdout) {
-                                stdout_str
-                                    .split('\n')
-                                    .filter(|line| line.contains("path") && !line.is_empty())
-                                    .for_each(|line| {
-                                        let mut chunks = line.split_whitespace();
-                                        chunks.next();
-                                        if let Some(fullname) = chunks.next() {
-                                            let mut fullnamesplit = fullname.split('/');
-                                            fullnamesplit.next();
-                                            if let Some(name) = fullnamesplit.clone().last() {
-                                                let repo =
-                                                    fullnamesplit.collect::<Vec<_>>().join("/");
-
-                                                if package_name == name {
-                                                    results.push(Result::new(
-                                                        "go",
-                                                        fullname,
-                                                        "",
-                                                        "",
-                                                        repo.as_str(),
-                                                        "installed",
-                                                    ));
-                                                }
-                                            }
-                                        }
-                                    });
-
-                                // let mut lines = stdout_str.split('\n');
-                                // let filtered_lines: Vec<&str> = lines
-                                //     .filter(|line| line.contains("path") && !line.is_empty())
-                                //     .collect();
-                                // for line in &filtered_lines {
-                                //     let mut chunks = line.split_whitespace();
-                                //     chunks.next();
-                                //     let fullname = chunks.next().unwrap();
-                                //     let mut fullnamesplit = fullname.split('/');
-                                //     fullnamesplit.next();
-                                //     let name = fullnamesplit.clone().last().unwrap();
-                                //     let repo = fullnamesplit.collect::<Vec<_>>().join("/");
-
-                                //     if package_name == name {
-                                //         results.push(Result::new(
-                                //             "go",
-                                //             fullname,
-                                //             "",
-                                //             "",
-                                //             repo.as_str(),
-                                //             "installed",
-                                //         ));
-                                //     }
-                            }
-                        } else {
-                            log::error(format!("go failed! stdout is empty..."))?;
-                            spinner.error("go failed! stdout is empty...");
-                            println!("{:?}", output);
-                        }
-                    }
-                    Err(_) => {
-                        log::error(format!("go failed!"))?;
-                        spinner.error("go failed!");
+                match check_go(package_name) {
+                    Ok(result) => results.push(result),
+                    Err(e) => {
+                        spinner.error(&e);
+                        log::error(e)?;
                     }
                 }
             }
-            "cargo" => {
-                let mut installed = false;
-                // first check if installed
-                match Command::new("cargo").arg("install").arg("--list").output() {
-                    Ok(output) => {
-                        if !output.stdout.is_empty() {
-                            let stdout: Vec<u8> = output.stdout;
-                            let stdout_string = String::from_utf8(stdout).unwrap();
-                            let lines = stdout_string.split('\n');
-
-                            let filtered_lines: Vec<&str> = lines
-                                .filter(|line| !line.starts_with(' ') && !line.is_empty())
-                                .collect();
-                            for line in &filtered_lines {
-                                let mut chunks = line.split_whitespace();
-                                let name = chunks.next().unwrap();
-                                let version = chunks.next().unwrap();
-
-                                if package_name == name {
-                                    results.push(Result::new(
-                                        "cargo",
-                                        name,
-                                        version,
-                                        "",
-                                        "",
-                                        "installed",
-                                    ));
-                                    installed = true;
-                                }
-                            }
-                        }
-                    }
-                    Err(_) => {
-                        log::error(format!("cargo list failed!"))?;
-                        spinner.error("cargo list failed!");
-                    }
+            "cargo" => match check_cargo(package_name) {
+                Ok(result) => results.push(result),
+                Err(e) => {
+                    spinner.error(&e);
+                    log::error(e)?;
                 }
-
-                // check if availlable if not installed
-                if !installed {
-                    match Command::new("cargo")
-                        .arg("search")
-                        .arg(package_name)
-                        .output()
-                    {
-                        Ok(output) => {
-                            if !output.stdout.is_empty() {
-                                let stdout: Vec<u8> = output.stdout;
-                                let stdout_string = String::from_utf8(stdout).unwrap();
-                                let mut lines = stdout_string.split('\n');
-                                let line = lines.next().unwrap();
-                                let mut chunks = line.split_whitespace();
-                                let name = chunks.next().unwrap();
-                                chunks.next();
-                                let version = chunks.next().unwrap();
-                                let description = chunks.collect::<Vec<_>>().join(" ");
-
-                                if package_name == name {
-                                    results.push(Result::new(
-                                        "cargo",
-                                        name,
-                                        version,
-                                        description.as_str(),
-                                        "",
-                                        "available",
-                                    ));
-                                } else {
-                                    results.push(Result::new(
-                                        "cargo",
-                                        package_name,
-                                        "",
-                                        "",
-                                        "",
-                                        "not found",
-                                    ));
-                                }
-                            }
-                        }
-                        Err(_) => {
-                            log::error(format!("cargo search failed!"))?;
-                            spinner.error("cargo search failed!");
-                        }
-                    }
-                }
-            }
+            },
             &_ => todo!(),
         }
     }
@@ -379,7 +376,7 @@ fn main() -> std::io::Result<()> {
                         "[available] - cargo: {} ({})",
                         result.package, result.version
                     ),
-                    result.info,
+                    result.desc,
                 )?;
             } else if result.status == "not found" {
                 log::error(format!("[not found] - cargo: {} ", result.package))?;
