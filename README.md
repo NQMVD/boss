@@ -13,11 +13,11 @@ _The boss of package management._
 ## Support
 ### Currently
 - yay
+- apt
 - cargo
 - go (only installed)
 
 ### Planned
-- apt (apt-get)
 - pip
 - dnf
 - npm
