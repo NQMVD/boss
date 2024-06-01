@@ -1,3 +1,6 @@
+#![allow(dead_code)]
+#![allow(unused_assignments)]
+
 use cliclack::{intro, log, outro, set_theme, spinner, Theme};
 use console::style;
 use std::process::{Command, Stdio};
