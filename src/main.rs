@@ -113,9 +113,7 @@ fn check_apt(package_name: &str) -> Result<PackageResult, String> {
 
         for line in &filtered_lines {
             let mut chunks = line.split_whitespace();
-            // println!("line: {} | chunks: {:?}", line, chunks);
             let fullname = chunks.next().expect("CUSTOM ERROR: failed to get fullname");
-            // println!("fullname: {}", fullname);
             let name = fullname .split('/').next()
                 .expect("CUSTOM ERROR: failed to split fullname");
             let version = chunks.next().expect("CUSTOM ERROR: failed to get version");
@@ -146,7 +144,7 @@ fn check_apt(package_name: &str) -> Result<PackageResult, String> {
             let stdout_string = String::from_utf8(stdout).unwrap();
             let mut lines = stdout_string.split('\n');
 
-            let version = lines.nth(2).expect("CUSTOM ERROR: failed to get version")
+            let version = lines.nth(1).expect("CUSTOM ERROR: failed to get version")
                 .split_whitespace().last().expect("CUSTOM ERROR: failed to get version");
 
             let desc = String::from("");
