@@ -19,8 +19,10 @@ _The boss of package management._
 
 ### Planned
 - pip
-- dnf
+- pacman (if yay is not installed)
+- paru (if yay is not installed)
 - npm
+- dnf?
 
 ## Details
 - uses cliclack for the pretty structured output.
