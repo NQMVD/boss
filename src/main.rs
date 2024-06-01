@@ -336,7 +336,7 @@ fn main() -> std::io::Result<()> {
 
     set_theme(MyTheme);
     println!();
-    intro(style(" peo ").on_cyan().black())?;
+    intro(style(" boss ").on_cyan().black())?;
 
     let package_name = &args[1];
     let installed_managers = get_installed_managers();

@@ -1,6 +1,5 @@
 ## To Do
 
-- change name to *peo*
 - add flag for description
 - add pip
 - add apt
@@ -15,6 +14,7 @@
 
 ## Done
 
+- change name to *boss*
 - add cargo installed
 - add yay installed
-- using cliclack
+- use cliclack
