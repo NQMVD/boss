@@ -114,8 +114,9 @@ fn check_apt(package_name: &str) -> Result<PackageResult, String> {
         for line in lines {
             let mut chunks = line.split_whitespace();
             let fullname = chunks.next().expect("CUSTOM ERROR: failed to get fullname");
-            let (name, repo) = fullname
-                .split_once('/')
+            println!("fullname: {}", fullname);
+            let (name, _repo) = fullname
+                .split('/')
                 .expect("CUSTOM ERROR: failed to split fullname");
             let version = chunks.next().expect("CUSTOM ERROR: failed to get version");
 
