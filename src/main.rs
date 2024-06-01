@@ -359,6 +359,20 @@ fn print_result(results: Vec<PackageResult>) -> core::result::Result<(), std::io
             } else if result.status == "not found" {
                 log::error(format!("[not found] -   yay: {} ", result.package))?;
             }
+        } else if result.manager == "apt" {
+            if result.status == "installed" {
+                log::success(format!(
+                    "[installed] -   apt: {} ({})",
+                    result.package, result.version
+                ))?;
+            } else if result.status == "available" {
+                log::info(format!(
+                    "[available] -   apt: {} ({})",
+                    result.package, result.version
+                ))?;
+            } else if result.status == "not found" {
+                log::error(format!("[not found] -   apt: {} ", result.package))?;
+            }
         } else if result.manager == "go" {
             if result.status == "installed" {
                 log::success(format!(
@@ -425,7 +439,13 @@ fn main() -> std::io::Result<()> {
     let mut results = vec![];
     for manager in &installed_managers {
         match *manager {
-            "apt" => {}
+            "apt" => match check_apt(package_name) {
+                Ok(result) => results.push(result),
+                Err(e) => {
+                    spinner.error(&e);
+                    log::error(e)?;
+                }
+            },
             "yay" => match check_yay(package_name) {
                 Ok(result) => results.push(result),
                 Err(e) => {
