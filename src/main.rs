@@ -91,6 +91,81 @@ fn get_installed_managers() -> Vec<&'static str> {
     installed_managers
 }
 
+// apt search = returns a list like yay but with empty lines in between
+// apt show = shows only one package with info, DOESNT show if its installed tho
+fn check_apt(package_name: &str) -> Option<PackageResult> {
+    let mut installed = false;
+
+    let output = Command::new("apt")
+        .arg("list")
+        .arg("--installed")
+        .output()
+        .expect("CUSTOM ERROR: failed to execute apt list --installed");
+
+    if !output.stdout.is_empty() {
+        let stdout: Vec<u8> = output.stdout;
+        let stdout_string = String::from_utf8(stdout).unwrap();
+        let lines = stdout_string.split('\n');
+
+        // let filtered_lines: Vec<&str> = lines
+        //     .filter(|line| !line.starts_with(' ') && !line.is_empty())
+        //     .collect();
+
+        for line in &lines {
+            let mut chunks = line.split_whitespace();
+            let fullname = chunks.next().expect("CUSTOM ERROR: failed to get fullname");
+            let (name, repo) = fullname
+                .split_once('/')
+                .expect("CUSTOM ERROR: failed to split fullname");
+            let version = chunks.next().expect("CUSTOM ERROR: failed to get version");
+
+            if package_name == name {
+                installed = true;
+                return Result::Ok(PackageResult::new(
+                    "apt",
+                    name,
+                    "installed",
+                    version,
+                    "",
+                    "",
+                ));
+            }
+        }
+    }
+
+    if !installed {
+        let output = Command::new("apt")
+            .arg("show")
+            .arg(package_name)
+            .output()
+            .expect("CUSTOM ERROR: failed to execute apt show <package_name>");
+
+        if !output.stdout.is_empty() {
+            let stdout: Vec<u8> = output.stdout;
+            let stdout_string = String::from_utf8(stdout).unwrap();
+            let mut lines = stdout_string.split('\n');
+
+            let version = lines.nth(2).expect("CUSTOM ERROR: failed to get version")
+                .split_whitespace().last().expect("CUSTOM ERROR: failed to get version");
+
+            let desc = "";
+
+            if package_name == name {
+                return Result::Ok(PackageResult::new(
+                    "apt",
+                    name,
+                    "available",
+                    version,
+                    description.as_str(),
+                    "",
+                ));
+            }
+        }
+    }
+
+    Result::Ok(PackageResult::none("apt", package_name))
+}
+
 fn check_yay(package_name: &str) -> Result<PackageResult, String> {
     let output = Command::new("yay")
         .arg("-Ss")
