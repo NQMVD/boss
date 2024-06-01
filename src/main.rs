@@ -105,7 +105,8 @@ fn check_apt(package_name: &str) -> Result<PackageResult, String> {
     if !output.stdout.is_empty() {
         let stdout: Vec<u8> = output.stdout;
         let stdout_string = String::from_utf8(stdout).unwrap();
-        let lines = stdout_string.split('\n');
+        let mut lines = stdout_string.split('\n');
+        lines.next();
 
         // let filtered_lines: Vec<&str> = lines
         //     .filter(|line| !line.starts_with(' ') && !line.is_empty())
