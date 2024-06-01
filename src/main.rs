@@ -105,16 +105,15 @@ fn check_apt(package_name: &str) -> Result<PackageResult, String> {
     if !output.stdout.is_empty() {
         let stdout: Vec<u8> = output.stdout;
         let stdout_string = String::from_utf8(stdout).unwrap();
-        let mut lines = stdout_string.split('\n');
-        lines.next();
+        let lines = stdout_string.split('\n');
 
-        // let filtered_lines: Vec<&str> = lines
-        //     .filter(|line| !line.starts_with(' ') && !line.is_empty())
-        //     .collect();
+        let filtered_lines: Vec<&str> = lines
+            .filter(|line| !line.starts_with("Listing") && !line.starts_with(' ') && !line.is_empty())
+            .collect();
 
-        for line in lines {
+        for line in &filtered_lines {
             let mut chunks = line.split_whitespace();
-            println!("line: {} | chunks: {:?}", line, chunks);
+            // println!("line: {} | chunks: {:?}", line, chunks);
             let fullname = chunks.next().expect("CUSTOM ERROR: failed to get fullname");
             // println!("fullname: {}", fullname);
             let name = fullname .split('/').next()
