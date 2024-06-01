@@ -1,6 +1,6 @@
 # boss
 
-![boss_shot-modified](https://github.com/NQMVD/boss/assets/99403507/20c5df7b-7560-4e02-b82d-91149abb116b)
+![boss_shot_final_HD](https://github.com/NQMVD/boss/assets/99403507/d7f5983f-d603-4e80-80e5-3bba4dd46cf5)
 
 _The boss of package management._
 
