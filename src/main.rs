@@ -93,7 +93,7 @@ fn get_installed_managers() -> Vec<&'static str> {
 
 // apt search = returns a list like yay but with empty lines in between
 // apt show = shows only one package with info, DOESNT show if its installed tho
-fn check_apt(package_name: &str) -> Option<PackageResult> {
+fn check_apt(package_name: &str) -> Result<PackageResult, String> {
     let mut installed = false;
 
     let output = Command::new("apt")
@@ -111,7 +111,7 @@ fn check_apt(package_name: &str) -> Option<PackageResult> {
         //     .filter(|line| !line.starts_with(' ') && !line.is_empty())
         //     .collect();
 
-        for line in &lines {
+        for line in lines {
             let mut chunks = line.split_whitespace();
             let fullname = chunks.next().expect("CUSTOM ERROR: failed to get fullname");
             let (name, repo) = fullname
@@ -148,18 +148,16 @@ fn check_apt(package_name: &str) -> Option<PackageResult> {
             let version = lines.nth(2).expect("CUSTOM ERROR: failed to get version")
                 .split_whitespace().last().expect("CUSTOM ERROR: failed to get version");
 
-            let desc = "";
+            let desc = String::from("");
 
-            if package_name == name {
                 return Result::Ok(PackageResult::new(
                     "apt",
-                    name,
+                    package_name,
                     "available",
                     version,
-                    description.as_str(),
+                    desc.as_str(),
                     "",
                 ));
-            }
         }
     }
 
