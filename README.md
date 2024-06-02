@@ -23,6 +23,7 @@ _The boss of package management._
 - paru (if yay is not installed)
 - npm
 - dnf?
+- brew?
 
 ## Details
 - uses cliclack for the pretty structured output.
