@@ -1,3 +1,6 @@
+dev:
+    zellij -l rustdev
+
 build:
     cargo build --release
 

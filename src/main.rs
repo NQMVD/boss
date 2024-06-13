@@ -1,9 +1,11 @@
 #![allow(dead_code)]
 #![allow(unused_assignments)]
 
+use clap::Parser;
 use cliclack::{intro, log, outro, set_theme, spinner, Theme};
 use console::style;
 use std::process::{Command, Stdio};
+
 
 struct MyTheme;
 
@@ -413,21 +415,20 @@ fn print_result(results: Vec<PackageResult>) -> core::result::Result<(), std::io
     Ok(())
 }
 
+#[derive(Parser, Debug)]
+#[command(version, about, long_about = None)]
+struct Args {
+    package: String,
+}
+
 fn main() -> std::io::Result<()> {
-    let args: Vec<String> = std::env::args().collect();
-    if args.len() != 2 {
-        println!("Usage: {} <package_name>", args[0]);
-        return Err(std::io::Error::new(
-            std::io::ErrorKind::InvalidInput,
-            "Invalid input, needs a package name as argument",
-        ));
-    }
+    let args = Args::parse();
 
     set_theme(MyTheme);
     println!();
     intro(style(" boss ").on_cyan().black())?;
 
-    let package_name = &args[1];
+    let package_name = args.package;
     let installed_managers = get_installed_managers();
 
     log::remark(format!("Managers: {}", installed_managers.join(", ")))?;
@@ -438,14 +439,14 @@ fn main() -> std::io::Result<()> {
     let mut results = vec![];
     for manager in &installed_managers {
         match *manager {
-            "apt" => match check_apt(package_name) {
+            "apt" => match check_apt(&package_name) {
                 Ok(result) => results.push(result),
                 Err(e) => {
                     spinner.error(&e);
                     log::error(e)?;
                 }
             },
-            "yay" => match check_yay(package_name) {
+            "yay" => match check_yay(&package_name) {
                 Ok(result) => results.push(result),
                 Err(e) => {
                     spinner.error(&e);
@@ -454,7 +455,7 @@ fn main() -> std::io::Result<()> {
             },
             "go" => {
                 // only installed packages, go doesnt have a search command. (yet)
-                match check_go(package_name) {
+                match check_go(&package_name) {
                     Ok(result) => results.push(result),
                     Err(e) => {
                         spinner.error(&e);
@@ -462,7 +463,7 @@ fn main() -> std::io::Result<()> {
                     }
                 }
             }
-            "cargo" => match check_cargo(package_name) {
+            "cargo" => match check_cargo(&package_name) {
                 Ok(result) => results.push(result),
                 Err(e) => {
                     spinner.error(&e);
