@@ -5,10 +5,23 @@
 _The boss of package management._
 
 ## Features
+### Currently
 - checks all available package managers for a given package:
   - if its **installed**,
   - if not, if its **available to download** with a manager.
-- also shows descriptions when needed (flag for that is planned).
+- also shows descriptions (only for cargo right now).
+
+### Planned
+- show descriptions for each managers result
+- check for similar package names (like `pkg-cli`, `pkg-git`, `pkg-bin`)
+- preferences (sorting of order of managers)
+- modes
+  - current one
+  - minimal (exclude `[not found]`)
+  - pipable (dont use cliclack for output but plain text or md)
+- read files instead of calling commands when possible
+
+---
 
 ## Support
 ### Currently
@@ -25,8 +38,11 @@ _The boss of package management._
 - dnf?
 - brew?
 
+---
+
 ## Details
-- uses cliclack for the pretty structured output.
-- only works on Linux
+- uses cliclack for the pretty structured output
+- calls shell commands (for now)
+- works on Linux
 - might work on macOS
 - won't work on Windows (also not planned to do so...)
