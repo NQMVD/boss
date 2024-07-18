@@ -7,6 +7,7 @@
     > with string.contains, also check cargo list lines starting with lines
 - add repos for yay
     > maybe show one result for each of: core, extra, aur
+- optimize using this: https://rust-lang-nursery.github.io/rust-cookbook/os/external.html#external-command
 
 ## Done
 

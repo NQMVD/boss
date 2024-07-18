@@ -6,7 +6,6 @@ use cliclack::{intro, log, outro, set_theme, spinner, Theme};
 use console::style;
 use std::process::{Command, Stdio};
 
-
 struct MyTheme;
 
 impl Theme for MyTheme {
@@ -110,13 +109,17 @@ fn check_apt(package_name: &str) -> Result<PackageResult, String> {
         let lines = stdout_string.split('\n');
 
         let filtered_lines: Vec<&str> = lines
-            .filter(|line| !line.starts_with("Listing") && !line.starts_with(' ') && !line.is_empty())
+            .filter(|line| {
+                !line.starts_with("Listing") && !line.starts_with(' ') && !line.is_empty()
+            })
             .collect();
 
         for line in &filtered_lines {
             let mut chunks = line.split_whitespace();
             let fullname = chunks.next().expect("CUSTOM ERROR: failed to get fullname");
-            let name = fullname .split('/').next()
+            let name = fullname
+                .split('/')
+                .next()
                 .expect("CUSTOM ERROR: failed to split fullname");
             let version = chunks.next().expect("CUSTOM ERROR: failed to get version");
 
@@ -146,19 +149,23 @@ fn check_apt(package_name: &str) -> Result<PackageResult, String> {
             let stdout_string = String::from_utf8(stdout).unwrap();
             let mut lines = stdout_string.split('\n');
 
-            let version = lines.nth(1).expect("CUSTOM ERROR: failed to get version")
-                .split_whitespace().last().expect("CUSTOM ERROR: failed to get version");
+            let version = lines
+                .nth(1)
+                .expect("CUSTOM ERROR: failed to get version")
+                .split_whitespace()
+                .last()
+                .expect("CUSTOM ERROR: failed to get version");
 
             let desc = String::from("");
 
-                return Result::Ok(PackageResult::new(
-                    "apt",
-                    package_name,
-                    "available",
-                    version,
-                    desc.as_str(),
-                    "",
-                ));
+            return Result::Ok(PackageResult::new(
+                "apt",
+                package_name,
+                "available",
+                version,
+                desc.as_str(),
+                "",
+            ));
         }
     }
 
@@ -324,6 +331,34 @@ fn check_go(package_name: &str) -> Result<PackageResult, String> {
         }
     }
     Result::Ok(PackageResult::none("go", package_name))
+}
+
+fn check_brew(package_name: &str) -> Result<PackageResult, String> {
+    let output = Command::new("brew")
+        .arg("list")
+        .output()
+        .expect("CUSTOM ERROR: failed to execute brew list");
+
+    if !output.stdout.is_empty() {
+        let stdout: Vec<u8> = output.stdout;
+        let stdout_string = String::from_utf8(stdout).unwrap();
+        let lines = stdout_string.split('\n');
+
+        for line in lines {
+            if line == package_name {
+                return Result::Ok(PackageResult::new(
+                    "brew",
+                    package_name,
+                    "installed",
+                    "",
+                    "",
+                    "",
+                ));
+            }
+        }
+    }
+
+    Result::Ok(PackageResult::none("brew", package_name))
 }
 
 // fn parse_package(package_name: &str) -> Result<PackageResult, String> {
