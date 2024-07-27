@@ -1,0 +1,3 @@
+- refactored the code to
+  - use the strp crate for parsing the command outputs
+  - bubble up errors instead of panicking

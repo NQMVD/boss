@@ -7,3 +7,4 @@ edition = "2021"
 clap = { version = "4.5.7", features = ["derive"] }
 cliclack = "0.2.5"
 console = "0.15.8"
+strp = "1.1.2"

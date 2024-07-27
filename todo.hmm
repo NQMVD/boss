@@ -1,0 +1,44 @@
+todo
+	add managers
+		✓ yay
+			repos
+				one result of each repo
+				sort by numbers, 1 first
+			description
+		✓ apt
+			description
+		✓ go
+			✗ no search feature
+		snap
+		flatpak?
+		brew
+		pip
+	options
+		--description
+			default: true
+		--output
+			plain
+				dont use cliclack, plain ascii output
+			table
+				use nu tables for output
+		--expand
+			(search for similar like pkg-git)
+		--selection
+			choose which managers to operate on
+		--short
+			dont show not found
+				only if nothing at all was found
+	optimize
+		read cookbook/commands
+		read files when possible, instead of running shell command
+			cargo file
+		add suggest crate
+		use a parser for command output processing
+			crates
+				strp
+				nom
+	next
+		ask to install
+			read config for order of priorities
+			use ratatui or propmt lib
+
