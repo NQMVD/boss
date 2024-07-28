@@ -10,7 +10,7 @@ todo
 		✓ cargo
 		✗ go
 			✗ no search feature
-		snap
+		✓ snap
 		flatpak?
 		brew
 		pip
@@ -34,12 +34,12 @@ todo
 		read files when possible, instead of running shell command
 			cargo file
 		add suggest crate
-		use a parser for command output processing
+		✓ use a parser for command output processing
 			crates
-				strp
+				✓ strp
 				nom
 	next
 		ask to install
 			read config for order of priorities
-			use ratatui or propmt lib
+			use ratatui or prompt lib
 

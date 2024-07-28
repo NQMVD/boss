@@ -9,3 +9,4 @@
 ## [0.4.0] - 2024-07-28
 
 - added snap
+- added sorted results
