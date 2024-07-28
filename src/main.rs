@@ -80,7 +80,7 @@ fn reduce_whitespace(s: String) -> String {
 }
 
 fn get_installed_managers() -> Vec<&'static str> {
-    let managers = vec!["apt", "yay", "go", "cargo"];
+    let managers = vec!["snap", "apt", "yay", "cargo", "go"];
     let mut installed_managers = Vec::new();
 
     for manager in &managers {
@@ -127,25 +127,25 @@ fn check_output(output: Output) -> Result<Vec<String>, String> {
 // apt search = returns a list like yay but with empty lines in between
 // apt show = shows only one package with info, DOESNT show if its installed tho
 fn check_apt(package_name: &str) -> Result<PackageResult, String> {
-    debug!("checking [apt] for [{}]", package_name);
-
     // 1. check registry if package exists
     let output = match Command::new("apt").arg("show").arg(package_name).output() {
         Ok(output) => output,
-        Err(e) => return Err(e.to_string()),
+        Err(e) => return Err(format!("[apt] {}", e)),
     };
     let lines = match check_output(output) {
         Ok(lines) => lines,
-        Err(e) => return Err(e),
+        Err(e) => {
+            warn!("apt show output is empty");
+            return Result::Ok(PackageResult::none("apt", package_name));
+        }
     };
     if !lines.iter().any(|line| line.contains("Package:")) {
-        debug!("[{}] not found in [apt]", package_name);
         return Result::Ok(PackageResult::none("apt", package_name));
     }
-    debug!("[{}] exists", package_name);
 
+    // ------------------------------------------------------
     // 2. get info about package: newest version, description
-    debug!("extracting version and description");
+    // ------------------------------------------------------
     let mut version = String::new();
     let mut desc = String::new();
 
@@ -168,22 +168,20 @@ fn check_apt(package_name: &str) -> Result<PackageResult, String> {
             };
         }
     }
-    debug!("version: [{}], description: [{}]", version, desc);
 
+    // --------------------------------
     // 3. check if package is installed
-    debug!("running apt list --installed");
+    // --------------------------------
     let output = match Command::new("apt").arg("list").arg("--installed").output() {
         Ok(output) => output,
         Err(e) => return Err(e.to_string()),
     };
 
-    debug!("checking output");
     let lines = match check_output(output) {
         Ok(lines) => lines,
         Err(e) => return Err(e),
     };
 
-    debug!("filtering lines");
     let filtered_lines: Vec<String> = lines
         .iter()
         .filter(|line| {
@@ -194,17 +192,14 @@ fn check_apt(package_name: &str) -> Result<PackageResult, String> {
         })
         .map(|line| line.to_string())
         .collect();
-    debug!("filtered lines: {}", filtered_lines.len());
 
-    debug!("checking if package is installed");
     for line in &filtered_lines {
         // zlib1g/noble,now 1:1.3.dfsg-3.1ubuntu2 amd64 [installed,automatic]
-        debug!("checking line: [{}]", line);
         let scanned: Result<(String, String, String, String, String), _> =
             try_scan!(line => "{}/{} {} {} [{}]");
         let (name, local_version, installed): (String, String, String) = match scanned {
             Ok((name, _, version, _, installed)) => (name, version, installed),
-            Err(e) => return Err("parsing error: {e:?}".to_owned()),
+            Err(e) => return Err(format!("parsing error: {e:?}")),
         };
 
         if package_name == name {
@@ -213,8 +208,6 @@ fn check_apt(package_name: &str) -> Result<PackageResult, String> {
             } else {
                 local_version
             };
-            debug!("version info: [{}]", version_info);
-            debug!("[{}] installed", package_name);
             return Result::Ok(PackageResult::some(
                 "apt",
                 &name,
@@ -226,7 +219,6 @@ fn check_apt(package_name: &str) -> Result<PackageResult, String> {
         }
     }
 
-    debug!("package not installed but available in [apt] registry");
     Result::Ok(PackageResult::some(
         "apt",
         package_name,
@@ -270,34 +262,29 @@ fn check_yay(package_name: &str) -> Result<PackageResult, String> {
 }
 
 fn check_cargo(package_name: &str) -> Result<PackageResult, String> {
-    debug!("checking [cargo] for [{}]", package_name);
-
+    // -----------------------------------
     // 1. check registry if package exists
+    // -----------------------------------
     let output = match Command::new("cargo")
         .arg("search")
         .arg(package_name)
         .output()
     {
         Ok(output) => output,
-        Err(e) => return Err(e.to_string()),
+        Err(e) => return Err(format!("[cargo] {}", e)),
     };
+
     let lines = match check_output(output) {
         Ok(lines) => lines,
         Err(e) => {
-            debug!("[{}] not found in [cargo] (empty output)", package_name);
             return Result::Ok(PackageResult::none("cargo", package_name)); // cargo search output can be empty
         }
     };
-    // check if package exists
+
     if lines.is_empty() {
-        debug!("[{}] not found in [cargo] (lines.is_empty)", package_name);
         return Result::Ok(PackageResult::none("cargo", package_name));
     }
     if lines.iter().all(|line| !line.contains(package_name)) {
-        debug!(
-            "[{}] not found in [cargo] (no line contains name)",
-            package_name
-        );
         return Result::Ok(PackageResult::none("cargo", package_name));
     }
     fn check_exact_name(line: &String, package_name: &str) -> bool {
@@ -309,13 +296,12 @@ fn check_cargo(package_name: &str) -> Result<PackageResult, String> {
         .iter()
         .all(|line| !check_exact_name(line, package_name))
     {
-        debug!("[{}] not found in [cargo] (name not found)", package_name);
         return Result::Ok(PackageResult::none("cargo", package_name));
     }
-    debug!("[{}] exists", package_name);
 
+    // ------------------------------------------------------
     // 2. get info about package: newest version, description
-    debug!("extracting version and description");
+    // ------------------------------------------------------
     let mut version = String::new();
     let mut desc = String::new();
     let filtered_lines: Vec<String> = lines
@@ -324,11 +310,9 @@ fn check_cargo(package_name: &str) -> Result<PackageResult, String> {
         .filter(|line| check_exact_name(line, package_name))
         .map(|line| line.to_string())
         .collect();
-    debug!("filtered lines: {}", filtered_lines.len());
 
     for line in &filtered_lines {
         let reduced_line = reduce_whitespace(line.to_string());
-        debug!("reduced line: [{}]", reduced_line);
         let scanned: Result<(String, String, String), _> =
             try_scan!(reduced_line => "{} = \"{}\" # {}");
         (version, desc) = match scanned {
@@ -336,36 +320,31 @@ fn check_cargo(package_name: &str) -> Result<PackageResult, String> {
             Err(e) => return Err(format!("[cargo] parsing error: {:?}", e)),
         };
     }
-    debug!("version: [{}], description: [{}]", version, desc);
 
+    // --------------------------------
     // 3. check if package is installed
-    debug!("running cargo install --list");
+    // --------------------------------
     let output = match Command::new("cargo").arg("install").arg("--list").output() {
         Ok(output) => output,
         Err(e) => return Err(e.to_string()),
     };
 
-    debug!("checking output");
     let lines = match check_output(output) {
         Ok(lines) => lines,
         Err(e) => return Err(e),
     };
 
-    debug!("filtering lines");
     let filtered_lines: Vec<String> = lines
         .iter()
         .filter(|line| !line.is_empty() && !line.starts_with(' ') && line.contains(package_name))
         .map(|line| line.to_string())
         .collect();
-    debug!("filtered lines: {}", filtered_lines.len());
 
-    debug!("checking if package is installed");
     for line in &filtered_lines {
-        debug!("checking line: [{}]", line);
         let scanned: Result<(String, String), _> = try_scan!(line => "{} v{}:");
         let (name, local_version): (String, String) = match scanned {
             Ok((name, version)) => (name, version),
-            Err(e) => return Err("parsing error: {e:?}".to_owned()),
+            Err(e) => return Err(format!("[cargo] parsing error: {e:?}")),
         };
 
         if package_name == name {
@@ -374,7 +353,6 @@ fn check_cargo(package_name: &str) -> Result<PackageResult, String> {
             } else {
                 local_version
             };
-            debug!("version info: [{}]", version_info);
             return Result::Ok(PackageResult::some(
                 "cargo",
                 &name,
@@ -386,7 +364,6 @@ fn check_cargo(package_name: &str) -> Result<PackageResult, String> {
         }
     }
 
-    debug!("package not installed but available in [cargo] registry");
     Result::Ok(PackageResult::some(
         "cargo",
         package_name,
@@ -444,12 +421,164 @@ fn check_go(package_name: &str) -> Result<PackageResult, String> {
 
 // snap find = query
 // snap list = installed
-fn check_snap(package_name: &str) -> Result<PackageResult, String> {}
+fn check_snap(package_name: &str) -> Result<PackageResult, String> {
+    // found: {name} {version} {_} {_} {summary}
+    // No matching snaps for {name}
+    // installed: {name} {version} {_}
+
+    // -----------------------------------
+    // 1. check registry if package exists
+    // -----------------------------------
+    let output = match Command::new("snap").arg("find").arg(package_name).output() {
+        Ok(output) => output,
+        Err(e) => return Err(format!("[snap] {}", e)),
+    };
+    let lines = match check_output(output) {
+        Ok(lines) => lines,
+        Err(e) => {
+            warn!("snap show output is empty");
+            return Result::Ok(PackageResult::none("snap", package_name));
+        }
+    };
+    if lines.is_empty() {
+        return Result::Ok(PackageResult::none("snap", package_name));
+    }
+    if lines
+        .iter()
+        .any(|line| line.contains("No matching snaps for"))
+    {
+        return Result::Ok(PackageResult::none("snap", package_name));
+    }
+    if lines.iter().all(|line| !line.contains(package_name)) {
+        return Result::Ok(PackageResult::none("snap", package_name));
+    }
+    fn check_exact_name(line: &String, package_name: &str) -> bool {
+        let mut iter = line.split_whitespace();
+        let name: &str = iter.next().unwrap_or_default();
+        name == package_name
+    }
+    if lines
+        .iter()
+        .all(|line| !check_exact_name(line, package_name))
+    {
+        return Result::Ok(PackageResult::none("snap", package_name));
+    }
+
+    // ------------------------------------------------------
+    // 2. get info about package: newest version, description
+    // ------------------------------------------------------
+    // remove the first line
+    match lines.iter().next() {
+        Some(line) => (),
+        None => return Err("snap show output is empty".to_owned()),
+    };
+
+    // filter the lines by exact name
+    let filtered_lines: Vec<String> = lines
+        .iter()
+        .filter(|line| check_exact_name(line, package_name))
+        .map(|line| line.to_string())
+        .collect();
+
+    // loop over, scan and extract version and description
+    let mut version = String::new();
+    let mut desc = String::new();
+    for line in &filtered_lines {
+        let reduced_line = reduce_whitespace(line.to_string());
+        let scanned: Result<(String, String, String, String, String), _> =
+            try_scan!(reduced_line => "{} {} {} {} {}");
+        (version, desc) = match scanned {
+            Ok((_, version, _, _, desc)) => (version, desc),
+            Err(e) => return Err(format!("[cargo] parsing error: {:?}", e)),
+        };
+    }
+
+    // --------------------------------
+    // 3. check if package is installed
+    // --------------------------------
+    // run command
+    let output = match Command::new("snap").arg("list").output() {
+        Ok(output) => output,
+        Err(e) => return Err(e.to_string()),
+    };
+
+    // check for empty output
+    let lines = match check_output(output) {
+        Ok(lines) => lines,
+        Err(e) => return Err(e),
+    };
+
+    // remove the first line (header)
+    match lines.iter().next() {
+        Some(line) => (),
+        None => return Err("snap show output is empty".to_owned()),
+    };
+
+    // filter the lines
+    let filtered_lines: Vec<String> = lines
+        .iter()
+        .filter(|line| !line.starts_with(' ') && !line.is_empty() && line.contains(package_name))
+        .map(|line| line.to_string())
+        .collect();
+
+    // loop over, reduce, scan and extract version
+    for line in &filtered_lines {
+        let reduced_line = reduce_whitespace(line.to_string());
+        let scanned: Result<(String, String, String), _> = try_scan!(reduced_line => "{} {} {}");
+        let (name, local_version): (String, String) = match scanned {
+            Ok((name, version, _)) => (name, version),
+            Err(e) => return Err(format!("parsing error: {e:?}")),
+        };
+
+        if package_name == name {
+            let version_info: String = if local_version != version {
+                format!("{} -> {}", local_version, version)
+            } else {
+                local_version
+            };
+            return Result::Ok(PackageResult::some(
+                "snap",
+                &name,
+                "installed",
+                &version_info,
+                &desc,
+                "",
+            ));
+        }
+    }
+
+    Result::Ok(PackageResult::some(
+        "snap",
+        package_name,
+        "available",
+        &version,
+        &desc,
+        "",
+    ))
+}
+
+fn sort_results(results: Vec<PackageResult>) -> Vec<PackageResult> {
+    let mut installed: Vec<PackageResult> = Vec::new();
+    let mut available: Vec<PackageResult> = Vec::new();
+    let mut not_found: Vec<PackageResult> = Vec::new();
+
+    for result in results {
+        if result.status.contains("installed") {
+            installed.push(result);
+        } else if result.status == "available" {
+            available.push(result);
+        } else {
+            not_found.push(result);
+        }
+    }
+
+    installed.append(&mut available);
+    installed.append(&mut not_found);
+    installed
+}
 
 fn print_result(results: Vec<PackageResult>) -> core::result::Result<(), std::io::Error> {
-    // TODO: fix this mess
     for result in results {
-        // O  [ apt ] - [installed] - (0.5.0-1)
         if result.status.contains("installed") {
             cliclack::log::success(format!(
                 "[ {} ] - [{}] - ({})",
@@ -522,6 +651,13 @@ fn main() -> std::io::Result<()> {
                     cliclack::log::error(e)?;
                 }
             },
+            "snap" => match check_snap(&package_name) {
+                Ok(result) => results.push(result),
+                Err(e) => {
+                    spinner.error(&e);
+                    cliclack::log::error(e)?;
+                }
+            },
             "go" => {
                 // only installed packages, go doesnt have a search command. (yet)
                 // match check_go(&package_name) {
@@ -545,7 +681,7 @@ fn main() -> std::io::Result<()> {
 
     spinner.stop("Results:");
 
-    print_result(results)?;
+    print_result(sort_results(results))?;
 
     cliclack::outro("Done!")?;
 

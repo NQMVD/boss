@@ -1,16 +1,14 @@
-# zellij start
-dev:
-    zellij -l rustdev
-
 build:
     cargo build --jobs 12
 
 debug pkg:
     clear; cargo run {{ pkg }}; bat boss.log
 
-# test by running with zellij and gum
+# test by running with helix, zellij and gum
 test:
-    cargo run zellij && cargo run gum && echo "SUCCESS!"
+    @cargo run helix
+    @cargo run zellij
+    @cargo run gum
 
 # install the binary to /usr/local/bin
 install:
