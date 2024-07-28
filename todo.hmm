@@ -1,13 +1,14 @@
 todo
 	add managers
-		✓ yay
+		✗ yay
 			repos
 				one result of each repo
 				sort by numbers, 1 first
 			description
 		✓ apt
 			description
-		✓ go
+		✓ cargo
+		✗ go
 			✗ no search feature
 		snap
 		flatpak?
