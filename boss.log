@@ -1,0 +1,25 @@
+18:19:05 [DEBUG] (1) boss: Args { package: "gum" }
+18:19:05 [DEBUG] (1) boss: checking [apt] for [gum]
+18:19:05 [DEBUG] (1) boss: [gum] exists
+18:19:05 [DEBUG] (1) boss: extracting version and description
+18:19:05 [DEBUG] (1) boss: version: [0.14.3], description: [Tasty Bubble Gum for your shell.]
+18:19:05 [DEBUG] (1) boss: running apt list --installed
+18:19:06 [DEBUG] (1) boss: checking output
+18:19:06 [DEBUG] (1) boss: filtering lines
+18:19:06 [DEBUG] (1) boss: filtered lines: 2
+18:19:06 [DEBUG] (1) boss: checking if package is installed
+18:19:06 [DEBUG] (1) boss: checking line: [gum/unknown,now 0.14.3 amd64 [installed]]
+18:19:06 [DEBUG] (1) boss: version info: [0.14.3]
+18:19:06 [DEBUG] (1) boss: [gum] installed
+18:19:06 [DEBUG] (1) boss: checking [cargo] for [gum]
+18:19:06 [DEBUG] (1) boss: [gum] exists
+18:19:06 [DEBUG] (1) boss: extracting version and description
+18:19:06 [DEBUG] (1) boss: filtered lines: 1
+18:19:06 [DEBUG] (1) boss: reduced line: [gum = "0.0.0" # Maybe something with logging]
+18:19:06 [DEBUG] (1) boss: version: [0.0.0], description: [Maybe something with logging]
+18:19:06 [DEBUG] (1) boss: running cargo install --list
+18:19:06 [DEBUG] (1) boss: checking output
+18:19:06 [DEBUG] (1) boss: filtering lines
+18:19:06 [DEBUG] (1) boss: filtered lines: 0
+18:19:06 [DEBUG] (1) boss: checking if package is installed
+18:19:06 [DEBUG] (1) boss: package not installed but available in [cargo] registry

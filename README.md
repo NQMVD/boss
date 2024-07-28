@@ -21,7 +21,7 @@ _The boss of package management._
 - read files instead of calling commands when possible
 - check mutiple packages at once
 - continue with a prompt what to do (install, update, etc.)
-- multithreading
+- multithreading or async
 
 > (also see the [mindmap](todo.hmm))
 

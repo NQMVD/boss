@@ -3,7 +3,10 @@ dev:
     zellij -l rustdev
 
 build:
-    cargo build
+    cargo build --jobs 12
+
+debug pkg:
+    clear; cargo run {{ pkg }}; bat boss.log
 
 # test by running with zellij and gum
 test:
@@ -11,4 +14,4 @@ test:
 
 # install the binary to /usr/local/bin
 install:
-    cargo build --release && sudo cp -v ./target/release/boss /usr/local/bin/
+    cargo build --release --jobs 12 && sudo cp -v ./target/release/boss /usr/local/bin/
