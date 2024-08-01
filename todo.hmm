@@ -30,14 +30,16 @@ todo
 			dont show not found
 				only if nothing at all was found
 	optimize
-		read cookbook/commands
-		read files when possible, instead of running shell command
-			cargo file
-		add suggest crate
 		✓ use a parser for command output processing
 			crates
 				✓ strp
 				nom
+		read files when possible, instead of running shell command
+			cargo file
+		add divan for benching
+		add tests
+		add suggest crate
+		read cookbook/commands
 	next
 		ask to install
 			read config for order of priorities
