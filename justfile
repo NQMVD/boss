@@ -22,3 +22,8 @@ test:
 install:
     cargo build --release --jobs {{ jobs }}
     sudo cp -v ./target/release/boss /usr/local/bin/
+
+# fetch, test and install
+update: && test install
+    git fetch
+    git status | rg -q 'behind'
