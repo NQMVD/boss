@@ -611,7 +611,10 @@ struct Args {
 }
 
 fn main() -> std::io::Result<()> {
-    CombinedLogger::init(vec![WriteLogger::new(
+    CombinedLogger::init(vec![
+        TermLogger::new(LevelFilter::Error, Config::default(), TerminalMode::Mixed, ColorChoice::Auto),
+        #[cfg(debug_assertions)]
+        WriteLogger::new(
         LevelFilter::Debug,
         Config::default(),
         File::create("boss.log").unwrap(),

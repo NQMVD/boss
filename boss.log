@@ -1,3 +1,1 @@
-21:33:14 [DEBUG] (1) boss: Args { package: "boss" }
-21:33:15 [WARN] stdout is empty
-21:33:15 [WARN] apt show output is empty
+18:32:58 [DEBUG] (1) boss: Args { package: "unar" }
