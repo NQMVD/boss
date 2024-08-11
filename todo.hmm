@@ -44,4 +44,8 @@ todo
 		ask to install
 			read config for order of priorities
 			use ratatui or prompt lib
+		install script
+			like starship
+			like shuttle
+			like zed
 
