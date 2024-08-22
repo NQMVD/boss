@@ -200,6 +200,8 @@ fn print_result(results: Vec<PackageResult>) -> core::result::Result<(), std::io
 #[command(version, about, long_about = None)]
 struct Args {
     package: String,
+    #[arg(short, long)]
+    quiet: bool,
 }
 
 fn main() -> std::io::Result<()> {
@@ -222,39 +224,66 @@ fn main() -> std::io::Result<()> {
     let args = Args::parse();
     debug!("{:?}", args);
 
-    // set_theme(MyTheme);
-    println!();
-    cliclack::intro(style(" boss ").on_cyan().black())?;
-
     let package_name = args.package;
     let installed_managers = get_installed_managers();
 
-    cliclack::log::remark(format!("Managers: {}", installed_managers.join(", ")))?;
-    cliclack::log::remark(format!("Package: {}", package_name))?; // Packages
+    match args.quiet {
+        true => {
+            let check_functions = get_check_functions();
+            let mut results = vec![];
 
-    let spinner = cliclack::spinner();
-    spinner.start("Fetching...");
-
-    let check_functions = get_check_functions();
-    let mut results = vec![];
-
-    for manager in &installed_managers {
-        if let Some(check_fn) = check_functions.get(*manager) {
-            match check_fn(&package_name) {
-                Ok(result) => results.push(result),
-                Err(e) => {
-                    spinner.error(&e);
-                    cliclack::log::error(e)?;
+            for manager in &installed_managers {
+                if let Some(check_fn) = check_functions.get(*manager) {
+                    match check_fn(&package_name) {
+                        Ok(result) => results.push(result),
+                        Err(e) => {
+                            return Err(std::io::Error::new(
+                                std::io::ErrorKind::Other,
+                                format!("Error: {}", e),
+                            ));
+                        }
+                    }
                 }
             }
+
+            if results.iter().all(|result| result.status == "not found") {
+                std::process::exit(1);
+            } else {
+                Ok(())
+            }
+        }
+        false => {
+            println!();
+            cliclack::intro(style(" boss ").on_cyan().black())?;
+
+            cliclack::log::remark(format!("Managers: {}", installed_managers.join(", ")))?;
+            cliclack::log::remark(format!("Package: {}", package_name))?; // Packages
+
+            let spinner = cliclack::spinner();
+            spinner.start("Fetching...");
+
+            let check_functions = get_check_functions();
+            let mut results = vec![];
+
+            for manager in &installed_managers {
+                if let Some(check_fn) = check_functions.get(*manager) {
+                    match check_fn(&package_name) {
+                        Ok(result) => results.push(result),
+                        Err(e) => {
+                            spinner.error(&e);
+                            cliclack::log::error(e)?;
+                        }
+                    }
+                }
+            }
+
+            spinner.stop("Results:");
+
+            print_result(sort_results(results))?;
+
+            cliclack::outro("Done!")?;
+
+            Ok(())
         }
     }
-
-    spinner.stop("Results:");
-
-    print_result(sort_results(results))?;
-
-    cliclack::outro("Done!")?;
-
-    Ok(())
 }

@@ -3,7 +3,7 @@ use std::process::Command;
 use strp::*;
 
 /// Checks if a package is available or installed using the `yay` package manager.
-fn check_yay(package_name: &str) -> Result<PackageResult, String> {
+pub fn check_yay(package_name: &str) -> Result<PackageResult, String> {
     let output = Command::new("yay")
         .arg("-Ss")
         .arg(package_name)

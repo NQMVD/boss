@@ -3,7 +3,7 @@ use std::process::Command;
 use strp::*;
 
 /// Checks if a package is available or installed using the `snap` package manager.
-fn check_snap(package_name: &str) -> Result<PackageResult, String> {
+pub fn check_snap(package_name: &str) -> Result<PackageResult, String> {
     // found: {name} {version} {_} {_} {summary}
     // No matching snaps for {name}
     // installed: {name} {version} {_}

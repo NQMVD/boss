@@ -3,7 +3,7 @@ use std::process::Command;
 use strp::*;
 
 /// Checks if a package is available or installed using the `apt` package manager.
-fn check_apt(package_name: &str) -> Result<PackageResult, String> {
+pub fn check_apt(package_name: &str) -> Result<PackageResult, String> {
     // 1. check registry if package exists
     let output = match Command::new("apt").arg("show").arg(package_name).output() {
         Ok(output) => output,

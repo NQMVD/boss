@@ -4,7 +4,7 @@ use strp::*;
 
 /// Checks if a package is available or installed using the `go` package manager.
 /// disabled until go package check is implemented
-fn check_go(package_name: &str) -> Result<PackageResult, String> {
+pub fn check_go(package_name: &str) -> Result<PackageResult, String> {
     // TODO: implement go package check
     let output = Command::new("go")
         .arg("version")
