@@ -29,6 +29,8 @@ todo
 		--short
 			dont show not found
 				only if nothing at all was found
+		✓ --quiet
+			return 0 if found or installed, return 1 if not found at all
 	optimize
 		✓ use a parser for command output processing
 			crates
@@ -40,6 +42,10 @@ todo
 		add tests
 		add suggest crate
 		read cookbook/commands
+	readme
+		new boss shot
+		add demo gifs using asciinema
+		maybe add better description
 	next
 		ask to install
 			read config for order of priorities
