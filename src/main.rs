@@ -1,6 +1,7 @@
 #![allow(dead_code)]
 #![allow(unused_assignments)]
 #![allow(unused_variables)]
+#![allow(unused_imports)]
 
 #[macro_use]
 extern crate log;
@@ -18,7 +19,7 @@ use std::collections::HashMap;
 
 // import the managers module
 mod managers;
-use managers::{check_apt, check_cargo, check_go, check_snap, check_yay};
+use managers::{check_apt, check_cargo, check_snap, check_yay};
 
 /// Represents the result of a package query.
 struct PackageResult {

@@ -1,6 +1,6 @@
 # boss
 
-![boss_shot](https://github.com/NQMVD/boss/assets/99403507/d7f5983f-d603-4e80-80e5-3bba4dd46cf5)
+![boss_shot](./assets/boss_shot.png)
 
 _The boss of package management._
 
@@ -9,37 +9,39 @@ _The boss of package management._
 - checks all available package managers for a given package:
   - if its **installed**,
   - if not, if its **available to download** with a manager.
-- also shows descriptions (only for cargo right now).
+- shows descriptions for available packages
+- shows the **latest version** of the package
+- shows the **installed version** of the package
+- quiet flag to only return with 0 or 1
 
 ### Planned
-- show descriptions for each managers result
-- check for similar package names (like `pkg-cli`, `pkg-git`, `pkg-bin`)
+- check for similar package names (like `pkg-cli`, `pkg-git`, `pkg-bin`, `pkg-2`)
 - preferences (sorting of order of managers)
 - outputs:
   - pretty cliclack
-  - plain (dont use cliclack for output but plain text or md)
+  - plain (dont use cliclack for output but plain text or markdown)
 - read files instead of calling commands when possible
 - check mutiple packages at once
 - continue with a prompt what to do (install, update, etc.)
 - multithreading or async
 
-> (also see the [mindmap](todo.hmm))
+> (also see the [todo mindmap](todo.hmm))
 
 ---
 
 ## Support
 ### Currently
 #### General
-- yay
+- snap
 - apt
+- yay (old code)
 
 #### Language specific
 - cargo
-- go (only installed)
+- go (disabled for now)
 
 ### Planned
 #### General
-- snap
 - flatpak
 - brew?
 - pacman (if yay is not installed)
@@ -61,7 +63,7 @@ _The boss of package management._
 ---
 
 ## Details
-- uses rust because of string processing capabilities
+- uses rust because of string processing capabilities and safety
 - uses cliclack for the pretty structured output
 - uses strp for parsing the command outputs
 - calls shell commands (for now)

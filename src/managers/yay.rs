@@ -1,6 +1,5 @@
-use crate::{check_output, reduce_whitespace, PackageResult};
+use crate::{check_output, PackageResult};
 use std::process::Command;
-use strp::*;
 
 /// Checks if a package is available or installed using the `yay` package manager.
 pub fn check_yay(package_name: &str) -> Result<PackageResult, String> {
