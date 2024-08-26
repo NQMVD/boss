@@ -20,10 +20,10 @@ test:
 # install the release binary to /usr/local/bin
 install:
     cargo build --release --jobs {{ jobs }}
-    sudo cp -v "./target/release/$(basename {{justfile_directory()}})" /usr/local/bin/
+    sudo mv -v "./target/release/$(basename {{justfile_directory()}})" /usr/local/bin/
 
 # fetch git and update dependencies
-@update:
+@update: && install
     git fetch
     cargo update
 

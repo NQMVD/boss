@@ -4,8 +4,9 @@
 
 _The boss of package management._
 
+## Showcase
 <details>
-  <summary>Showcase</summary>
+  <summary>open sesame</summary>
 
   ## helix query
   ![default.tape](./tapes/default.gif)
@@ -44,7 +45,6 @@ _The boss of package management._
 
 > (also see the [todo mindmap](todo.hmm))
 
----
 
 ## Support
 ### Currently
@@ -77,7 +77,36 @@ _The boss of package management._
 - conda?
 - gem?
 
----
+## Installation
+### From source (pure bash)
+```bash
+git clone https://github.com/NQMVD/boss
+cd boss
+cargo build --release
+sudo mv target/release/boss /usr/local/bin
+```
+
+### From source (gh + just)
+```bash
+gh repo clone NQMVD/boss
+cd boss
+just install
+```
+> binaries will be included at some point
+
+## Update
+### From source (pure bash)
+```bash
+git pull
+cargo build --release
+sudo mv target/release/boss /usr/local/bin
+```
+
+### From source (just)
+```bash
+just update
+```
+
 
 ## Details
 - uses rust because of string processing capabilities and safety
