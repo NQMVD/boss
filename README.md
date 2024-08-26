@@ -7,9 +7,16 @@ _The boss of package management._
 <details>
   <summary>Showcase</summary>
 
+  ## helix query
   ![default.tape](./tapes/default.gif)
+
+  ## helix query --interactive
   ![interactive.tape](./tapes/interactive.gif)
+
+  ## shows latest version and installed version
   ![newversion.tape](./tapes/newversion.gif)
+
+  ## stays quiet for scripts
   ![quiet.tape](./tapes/quiet.gif)
 </details>
 
