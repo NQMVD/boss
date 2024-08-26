@@ -1,3 +1,7 @@
+## [0.5.0] - 2024-08-26
+
+- added --interactive flag
+
 ## [0.4.2] - 2024-08-26
 
 - added catch for virtual packages for apt

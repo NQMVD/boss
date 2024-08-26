@@ -200,9 +200,16 @@ fn print_result(results: Vec<PackageResult>) -> core::result::Result<(), std::io
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
 struct Args {
-    package: String,
+    /// The package to check.
+    package: Option<String>,
+
+    /// Stay quiet and return with exit code.
     #[arg(short, long)]
     quiet: bool,
+
+    /// Run in interactive mode.
+    #[arg(short, long)]
+    interactive: bool,
 }
 
 fn main() -> std::io::Result<()> {
@@ -229,66 +236,124 @@ fn main() -> std::io::Result<()> {
     let args = Args::parse();
     debug!("{:?}", args);
 
-    let package_name = args.package;
+    // check for missing args
+    if args.package.is_none() && !args.interactive {
+        return Err(std::io::Error::new(
+            std::io::ErrorKind::Other,
+            "Missing package name or --interactive flag",
+        ));
+    }
+
+    // check if package and interactive flags are set
+    if args.package.is_some() && args.interactive {
+        return Err(std::io::Error::new(
+            std::io::ErrorKind::Other,
+            "Cannot use both package name and --interactive flag",
+        ));
+    }
+
+    // check for colliding args
+    if args.quiet && args.interactive {
+        return Err(std::io::Error::new(
+            std::io::ErrorKind::Other,
+            "Cannot use both --quiet and --interactive flags",
+        ));
+    }
+
+    let package_name = args.package.as_deref().unwrap_or("");
     let installed_managers = get_installed_managers();
 
-    match args.quiet {
-        true => {
-            let check_functions = get_check_functions();
-            let mut results = vec![];
+    if args.quiet {
+        let check_functions = get_check_functions();
+        let mut results = vec![];
 
-            for manager in &installed_managers {
-                if let Some(check_fn) = check_functions.get(*manager) {
-                    match check_fn(&package_name) {
-                        Ok(result) => results.push(result),
-                        Err(e) => {
-                            return Err(std::io::Error::new(
-                                std::io::ErrorKind::Other,
-                                format!("Error: {}", e),
-                            ));
-                        }
+        for manager in &installed_managers {
+            if let Some(check_fn) = check_functions.get(*manager) {
+                match check_fn(&package_name) {
+                    Ok(result) => results.push(result),
+                    Err(e) => {
+                        return Err(std::io::Error::new(
+                            std::io::ErrorKind::Other,
+                            format!("Error: {}", e),
+                        ));
                     }
                 }
-            }
-
-            if results.iter().all(|result| result.status == "not found") {
-                std::process::exit(1);
-            } else {
-                Ok(())
             }
         }
-        false => {
-            println!();
-            cliclack::intro(style(" boss ").on_cyan().black())?;
 
-            cliclack::log::remark(format!("Managers: {}", installed_managers.join(", ")))?;
-            cliclack::log::remark(format!("Package: {}", package_name))?; // Packages
-
-            let spinner = cliclack::spinner();
-            spinner.start("Fetching...");
-
-            let check_functions = get_check_functions();
-            let mut results = vec![];
-
-            for manager in &installed_managers {
-                if let Some(check_fn) = check_functions.get(*manager) {
-                    match check_fn(&package_name) {
-                        Ok(result) => results.push(result),
-                        Err(e) => {
-                            spinner.error(&e);
-                            cliclack::log::error(e)?;
-                        }
-                    }
-                }
-            }
-
-            spinner.stop("Results:");
-
-            print_result(sort_results(results))?;
-
-            cliclack::outro("Done!")?;
-
-            Ok(())
+        if results.iter().all(|result| result.status == "not found") {
+            std::process::exit(1);
+        } else {
+            return Ok(());
         }
     }
+
+    if args.interactive {
+        cliclack::intro(style(" boss ").on_cyan().black())?;
+
+        let package_name: String = match cliclack::input("Enter package name: ").interact() {
+            Ok(name) => name,
+            Err(e) => {
+                cliclack::log::error(e)?;
+                return Ok(());
+            }
+        };
+        let installed_managers = get_installed_managers();
+
+        let spinner = cliclack::spinner();
+        spinner.start("Fetching...");
+
+        let check_functions = get_check_functions();
+        let mut results = vec![];
+
+        for manager in &installed_managers {
+            if let Some(check_fn) = check_functions.get(*manager) {
+                match check_fn(&package_name) {
+                    Ok(result) => results.push(result),
+                    Err(e) => {
+                        spinner.error(&e);
+                        cliclack::log::error(e)?;
+                    }
+                }
+            }
+        }
+
+        spinner.stop("Results:");
+        print_result(sort_results(results))?;
+        cliclack::outro("Done!")?;
+        return Ok(());
+    }
+
+    println!();
+    cliclack::intro(style(" boss ").on_cyan().black())?;
+
+    cliclack::log::remark(format!("Managers: {}", installed_managers.join(", ")))?;
+    cliclack::log::remark(format!(
+        "Package: {}",
+        style(package_name).on_black().cyan()
+    ))?; // Packages
+
+    let spinner = cliclack::spinner();
+    spinner.start("Fetching...");
+
+    let check_functions = get_check_functions();
+    let mut results = vec![];
+
+    for manager in &installed_managers {
+        if let Some(check_fn) = check_functions.get(*manager) {
+            match check_fn(&package_name) {
+                Ok(result) => results.push(result),
+                Err(e) => {
+                    spinner.error(&e);
+                    cliclack::log::error(e)?;
+                }
+            }
+        }
+    }
+
+    spinner.stop("Results:");
+    print_result(sort_results(results))?;
+    cliclack::outro("Done!")?;
+
+    Ok(())
 }

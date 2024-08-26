@@ -10,10 +10,12 @@ debug pkg:
 
 # test by running with helix, zellij and gum
 test:
-    @cargo run -- helix -q
-    @cargo run -- zellij -q
-    @cargo run -- gum -q
-    @echo "All tests passed"
+    @cargo run -- helix && echo "helix passed"; hr
+    @cargo run -- zellij && echo "zellij passed"; hr
+    @cargo run -- gum && echo "gum passed"; hr
+    @cargo run -- gpaste && echo "gpaste passed"; hr
+    @cargo run -- -q -i || echo "-qi passed"; hr
+    @cargo run -- helix -i || echo "helix -i passed"; hr
 
 # install the release binary to /usr/local/bin
 install:
