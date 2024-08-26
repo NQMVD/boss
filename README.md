@@ -4,6 +4,15 @@
 
 _The boss of package management._
 
+<details>
+  <summary>Showcase</summary>
+
+  ![default.tape](./tapes/default.gif)
+  ![interactive.tape](./tapes/interactive.gif)
+  ![newversion.tape](./tapes/newversion.gif)
+  ![quiet.tape](./tapes/quiet.gif)
+</details>
+
 ## Features
 ### Currently
 - checks all available package managers for a given package:
@@ -13,6 +22,7 @@ _The boss of package management._
 - shows the **latest version** of the package
 - shows the **installed version** of the package
 - quiet flag to only return with 0 or 1
+- interative flag to ask for user input
 
 ### Planned
 - check for similar package names (like `pkg-cli`, `pkg-git`, `pkg-bin`, `pkg-2`)
