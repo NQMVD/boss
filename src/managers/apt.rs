@@ -4,10 +4,16 @@ use strp::*;
 
 /// Checks if a package is available or installed using the `apt` package manager.
 pub fn check_apt(package_name: &str) -> Result<PackageResult, String> {
+    // -----------------------------------
     // 1. check registry if package exists
+    // -----------------------------------
+    debug!("checking registry for package: {}", package_name);
     let output = match Command::new("apt").arg("show").arg(package_name).output() {
         Ok(output) => output,
-        Err(e) => return Err(format!("[apt] {}", e)),
+        Err(e) => {
+            error!("could not check registry: {}", e);
+            return Err(format!("[apt] {}", e));
+        }
     };
     let lines = match check_output(output) {
         Ok(lines) => lines,
@@ -17,6 +23,14 @@ pub fn check_apt(package_name: &str) -> Result<PackageResult, String> {
         }
     };
     if !lines.iter().any(|line| line.contains("Package:")) {
+        debug!("package not found in registry");
+        return Result::Ok(PackageResult::none("apt", package_name));
+    }
+    // -----------------------------------
+    // 1.1. check if package is virtual
+    // -----------------------------------
+    if lines.iter().any(|line| line.contains("not a real package")) {
+        debug!("package is virtual and not a real package");
         return Result::Ok(PackageResult::none("apt", package_name));
     }
 

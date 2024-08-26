@@ -26,7 +26,7 @@ install:
     cargo update
 
 # increase the version and update the changelog
-@update-version:
+update-version:
     #!/usr/bin/env bash
 
     current_version=$(grep -E '^version = "' Cargo.toml | cut -d '"' -f2)

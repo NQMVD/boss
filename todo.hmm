@@ -6,17 +6,20 @@ todo
 				sort by numbers, 1 first
 			description
 		✓ apt
-			description
+			✓ description
+			✓ virtual package catch
 		✓ cargo
 		✗ go
 			✗ no search feature
 		✓ snap
-		flatpak?
+		flatpak
 		brew
 		pip
 	options
 		--description
 			default: true
+		--interactive
+			interactive prompting with cliclack
 		--output
 			plain
 				dont use cliclack, plain ascii output

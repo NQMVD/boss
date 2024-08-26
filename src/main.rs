@@ -206,17 +206,21 @@ struct Args {
 }
 
 fn main() -> std::io::Result<()> {
+    let config = ConfigBuilder::new()
+        .set_thread_level(LevelFilter::Error)
+        .set_target_level(LevelFilter::Error)
+        .build();
     CombinedLogger::init(vec![
         TermLogger::new(
             LevelFilter::Error,
-            Config::default(),
+            config.clone(),
             TerminalMode::Mixed,
             ColorChoice::Auto,
         ),
         #[cfg(debug_assertions)]
         WriteLogger::new(
             LevelFilter::Debug,
-            Config::default(),
+            config,
             File::create("boss.log").unwrap(),
         ),
     ])

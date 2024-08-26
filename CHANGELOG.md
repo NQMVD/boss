@@ -1,3 +1,7 @@
+## [0.4.2] - 2024-08-26
+
+- added catch for virtual packages for apt
+
 ## [0.4.1] - 2024-08-25
 
 - making use of modules now
