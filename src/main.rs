@@ -8,7 +8,8 @@ extern crate log;
 extern crate simplelog;
 
 use clap::Parser;
-use console::style;
+use cliclack::{progress_bar, Theme, ThemeState};
+use console::{style, Style};
 
 use simplelog::*;
 
@@ -64,6 +65,13 @@ impl PackageResult {
 
 /// Type alias for the check function signature.
 type CheckFn = fn(&str) -> Result<PackageResult, String>;
+
+struct MyTheme;
+impl Theme for MyTheme {
+    fn spinner_chars(&self) -> String {
+        "⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏".into()
+    }
+}
 
 /// Reduces consecutive whitespace characters in a string to a single space.
 fn reduce_whitespace(s: String) -> String {
@@ -260,8 +268,8 @@ fn main() -> std::io::Result<()> {
         ));
     }
 
-    let package_name = args.package.as_deref().unwrap_or("");
     let installed_managers = get_installed_managers();
+    let mut package_name: String = args.package.as_deref().unwrap_or("").into();
 
     if args.quiet {
         let check_functions = get_check_functions();
@@ -288,70 +296,54 @@ fn main() -> std::io::Result<()> {
         }
     }
 
-    if args.interactive {
-        cliclack::intro(style(" boss ").on_cyan().black())?;
+    println!();
 
-        let package_name: String = match cliclack::input("Enter package name: ").interact() {
+    cliclack::set_theme(MyTheme);
+    cliclack::intro(style(" boss ").on_cyan().black())?;
+
+    cliclack::log::remark(format!(
+        "Managers: {} ({})",
+        installed_managers.join(", "),
+        installed_managers.len()
+    ))?;
+    if args.interactive {
+        package_name = match cliclack::input("Enter package name: ").interact() {
             Ok(name) => name,
             Err(e) => {
                 cliclack::log::error(e)?;
                 return Ok(());
             }
         };
-        let installed_managers = get_installed_managers();
-
-        let spinner = cliclack::spinner();
-        spinner.start("Fetching...");
-
-        let check_functions = get_check_functions();
-        let mut results = vec![];
-
-        for manager in &installed_managers {
-            if let Some(check_fn) = check_functions.get(*manager) {
-                match check_fn(&package_name) {
-                    Ok(result) => results.push(result),
-                    Err(e) => {
-                        spinner.error(&e);
-                        cliclack::log::error(e)?;
-                    }
-                }
-            }
-        }
-
-        spinner.stop("Results:");
-        print_result(sort_results(results))?;
-        cliclack::outro("Done!")?;
-        return Ok(());
     }
-
-    println!();
-    cliclack::intro(style(" boss ").on_cyan().black())?;
-
-    cliclack::log::remark(format!("Managers: {}", installed_managers.join(", ")))?;
     cliclack::log::remark(format!(
         "Package: {}",
-        style(package_name).on_black().cyan()
-    ))?; // Packages
+        style(&package_name).on_black().cyan()
+    ))?;
 
-    let spinner = cliclack::spinner();
-    spinner.start("Fetching...");
+    let progress = progress_bar(installed_managers.len() as u64)
+        .with_template("{msg:20} {bar:15.cyan/blue} {pos}/{len} [{elapsed}]");
+    progress.start("Fetching...");
 
     let check_functions = get_check_functions();
     let mut results = vec![];
 
     for manager in &installed_managers {
         if let Some(check_fn) = check_functions.get(*manager) {
+            progress.set_message(format!("Checking {}...", manager));
             match check_fn(&package_name) {
-                Ok(result) => results.push(result),
+                Ok(result) => {
+                    results.push(result);
+                    progress.inc(1);
+                }
                 Err(e) => {
-                    spinner.error(&e);
+                    progress.error(&e);
                     cliclack::log::error(e)?;
                 }
             }
         }
     }
 
-    spinner.stop("Results:");
+    progress.stop("Results:");
     print_result(sort_results(results))?;
     cliclack::outro("Done!")?;
 
