@@ -39,8 +39,9 @@ todo
 			crates
 				✓ strp
 				nom
-		read files when possible, instead of running shell command
-			cargo file
+		take inspiration from topgrade
+			read command output
+			modules
 		add divan for benching
 		add tests
 		add suggest crate

@@ -43,7 +43,8 @@ _The boss of package management._
 - continue with a prompt what to do (install, update, etc.)
 - multithreading or async
 
-> (also see the [todo mindmap](todo.hmm))
+> theres also a plan for taking inspiration from topgrade on how to work with different managers.
+> (also see the [todo mindmap](todo.hmm) for details)
 
 
 ## Support
