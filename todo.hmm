@@ -18,7 +18,7 @@ todo
 	options
 		--description
 			default: true
-		--interactive
+		✓ --interactive
 			interactive prompting with cliclack
 		--output
 			plain
@@ -26,7 +26,7 @@ todo
 			table
 				use nu tables for output
 		--expand
-			(search for similar like pkg-git)
+			search for similar like pkg-git
 		--selection
 			choose which managers to operate on
 		--short
@@ -44,16 +44,30 @@ todo
 			modules
 		add divan for benching
 		add tests
+			because i need to start doing that...
 		add suggest crate
-		read cookbook/commands
-	readme
-		new boss shot
-		add demo gifs using asciinema
-		maybe add better description
+			to implement --expand
+	features
+		traceless
+			optional config file
+				option for caching results
+					cache results in toml
+					add timestamp
+					clear cache after TIME
+						add option for that
+				selection of managers to include
+				priority list for managers for installing
+		trackdown
+			more checks
+				find location
+					with where?
+				if in path
+				if callable with shell?
 	next
 		ask to install
 			read config for order of priorities
 			use ratatui or prompt lib
+				demand or cliclack
 		install script
 			like starship
 			like shuttle

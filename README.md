@@ -38,9 +38,12 @@ _The boss of package management._
 - outputs:
   - pretty cliclack
   - plain (dont use cliclack for output but plain text or markdown)
+  - table (use nu)
 - read files instead of calling commands when possible
 - check mutiple packages at once
 - continue with a prompt what to do (install, update, etc.)
+- config file
+- more checks (validate location, sourced in path, etc.)
 - multithreading or async
 
 > theres also a plan for taking inspiration from topgrade on how to work with different managers.
@@ -113,7 +116,7 @@ just update
 - uses rust because of string processing capabilities and safety
 - uses cliclack for the pretty structured output
 - uses strp for parsing the command outputs
-- calls shell commands (for now)
+- calls shell commands
 - works on Linux
 - might work on macOS (will test with darling soon)
 - won't work on Windows (also not planned to do so...)
