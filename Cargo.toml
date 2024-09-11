@@ -1,10 +1,11 @@
 [package]
 name = "boss"
-version = "0.6.0"
+description = "◇ The boss of package management."
+version = "0.6.1"
 edition = "2021"
 
 [dependencies]
-clap = { version = "4.5.7", features = ["derive"] }
+clap = { version = "4.5.7", features = ["cargo"] }
 cliclack = "0.2.5"
 console = "0.15.8"
 log = "0.4.22"

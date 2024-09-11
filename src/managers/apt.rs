@@ -17,7 +17,7 @@ pub fn check_apt(package_name: &str) -> Result<PackageResult, String> {
     };
     let lines = match check_output(output) {
         Ok(lines) => lines,
-        Err(e) => {
+        Err(_) => {
             warn!("apt show output is empty");
             return Result::Ok(PackageResult::none("apt", package_name));
         }

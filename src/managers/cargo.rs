@@ -18,7 +18,7 @@ pub fn check_cargo(package_name: &str) -> Result<PackageResult, String> {
 
     let lines = match check_output(output) {
         Ok(lines) => lines,
-        Err(e) => {
+        Err(_) => {
             return Result::Ok(PackageResult::none("cargo", package_name)); // cargo search output can be empty
         }
     };

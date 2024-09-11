@@ -1,15 +1,18 @@
 #![allow(dead_code)]
-#![allow(unused_assignments)]
-#![allow(unused_variables)]
+// #![allow(unused_assignments)]
+// #![allow(unused_variables)]
 #![allow(unused_imports)]
 
 #[macro_use]
 extern crate log;
 extern crate simplelog;
 
-use clap::Parser;
-use cliclack::{progress_bar, Theme, ThemeState};
-use console::{style, Style};
+use clap::{
+    builder::{styling::AnsiColor, Styles},
+    crate_description, crate_version, Arg, ArgAction, ArgGroup, ArgMatches, Command as CliCommand,
+};
+use cliclack::{progress_bar, Theme};
+use console::style;
 
 use simplelog::*;
 
@@ -22,6 +25,8 @@ use std::collections::HashMap;
 mod managers;
 use managers::{check_apt, check_cargo, check_snap, check_yay};
 
+// TODO enum of managers, maybe create a type for each manager for better handeling
+
 /// Represents the result of a package query.
 struct PackageResult {
     manager: String, // apt, yay, go, cargo
@@ -29,7 +34,7 @@ struct PackageResult {
     version: String, // version
     desc: String,    // description
     repo: String,    // repo, for yay it's the repo (for go it's the module path?)
-    status: String,  // installed, available, not found
+    status: String,  // installed, available, not found; TODO: create an enum
 }
 
 impl PackageResult {
@@ -205,19 +210,63 @@ fn print_result(results: Vec<PackageResult>) -> core::result::Result<(), std::io
     Ok(())
 }
 
-#[derive(Parser, Debug)]
-#[command(version, about, long_about = None)]
-struct Args {
-    /// The package to check.
-    package: Option<String>,
+fn cli() -> CliCommand {
+    // arg examples
+    // .arg(
+    //     Arg::new(arg::DRY_RUN)
+    //       .short('n')
+    //       .long("dry-run")
+    //       .env("JUST_DRY_RUN")
+    //       .action(ArgAction::SetTrue)
+    //       .help("Print what just would do without doing it")
+    //       .conflicts_with(arg::QUIET),
+    //   )
+    //   .arg(
+    //     Arg::new(arg::DUMP_FORMAT)
+    //       .long("dump-format")
+    //       .env("JUST_DUMP_FORMAT")
+    //       .action(ArgAction::Set)
+    //       .value_parser(clap::value_parser!(DumpFormat))
+    //       .default_value("just")
+    //       .value_name("FORMAT")
+    //       .help("Dump justfile as <FORMAT>"),
+    //   )
 
-    /// Stay quiet and return with exit code.
-    #[arg(short, long)]
-    quiet: bool,
-
-    /// Run in interactive mode.
-    #[arg(short, long)]
-    interactive: bool,
+    CliCommand::new("boss")
+        .about(crate_description!())
+        .version(crate_version!())
+        .styles(
+            Styles::styled()
+                .header(AnsiColor::Green.on_default().bold())
+                .usage(AnsiColor::Green.on_default().bold())
+                .literal(AnsiColor::Cyan.on_default().bold())
+                .placeholder(AnsiColor::Cyan.on_default()),
+        )
+        .arg_required_else_help(true)
+        .arg(
+            Arg::new("package")
+                .num_args(1..)
+                .help("The package(s) to check")
+                .action(ArgAction::Append)
+                .conflicts_with("interactive"),
+        )
+        .arg(
+            Arg::new("quiet")
+                .short('q')
+                .long("quiet")
+                .help("Stay quiet, only return 0 or 1")
+                .action(ArgAction::SetTrue)
+                .conflicts_with("interactive"),
+        )
+        .arg(
+            Arg::new("interactive")
+                .short('i')
+                .long("interactive")
+                .help("Run in interactive mode and prompt the user for packges")
+                .action(ArgAction::SetTrue)
+                .conflicts_with("quiet")
+                .conflicts_with("package"),
+        )
 }
 
 fn main() -> std::io::Result<()> {
@@ -241,42 +290,50 @@ fn main() -> std::io::Result<()> {
     ])
     .unwrap();
 
-    let args = Args::parse();
-    debug!("{:?}", args);
+    let matches = cli().try_get_matches().unwrap_or_else(|e| e.exit());
+    debug!("Matches: {:?}", matches);
+
+    let packages = matches
+        .get_many::<String>("package")
+        .unwrap_or_default()
+        .map(|v| v.as_str())
+        .collect::<Vec<_>>();
+    debug!("Packages: {:?}", packages);
+
+    let is_interactive = matches.get_flag("interactive");
+    let stay_quiet = matches.get_flag("quiet");
 
     // check for missing args
-    if args.package.is_none() && !args.interactive {
-        return Err(std::io::Error::new(
-            std::io::ErrorKind::Other,
-            "Missing package name or --interactive flag",
-        ));
-    }
+    // if packages.is_empty() && !is_interactive {
+    //     return Err(std::io::Error::new(
+    //         std::io::ErrorKind::Other,
+    //         "Missing package(s) or --interactive flag",
+    //     ));
+    // }
 
     // check if package and interactive flags are set
-    if args.package.is_some() && args.interactive {
-        return Err(std::io::Error::new(
-            std::io::ErrorKind::Other,
-            "Cannot use both package name and --interactive flag",
-        ));
-    }
+    // if args.package.is_some() && args.interactive {
+    //     return Err(std::io::Error::new(
+    //         std::io::ErrorKind::Other,
+    //         "Cannot use both package name and --interactive flag",
+    //     ));
+    // }
 
     // check for colliding args
-    if args.quiet && args.interactive {
-        return Err(std::io::Error::new(
-            std::io::ErrorKind::Other,
-            "Cannot use both --quiet and --interactive flags",
-        ));
-    }
+    // if args.quiet && args.interactive {
+    //     return Err(std::io::Error::new(
+    //         std::io::ErrorKind::Other,
+    //         "Cannot use both --quiet and --interactive flags",
+    //     ));
+    // }
 
-    let installed_managers = get_installed_managers();
-    let mut package_name: String = args.package.as_deref().unwrap_or("").into();
-
-    if args.quiet {
+    if stay_quiet {
+        let package_name = packages.get(0).unwrap().to_string();
         let check_functions = get_check_functions();
         let mut results = vec![];
 
-        for manager in &installed_managers {
-            if let Some(check_fn) = check_functions.get(*manager) {
+        for manager in get_installed_managers() {
+            if let Some(check_fn) = check_functions.get(manager) {
                 match check_fn(&package_name) {
                     Ok(result) => results.push(result),
                     Err(e) => {
@@ -301,20 +358,28 @@ fn main() -> std::io::Result<()> {
     cliclack::set_theme(MyTheme);
     cliclack::intro(style(" boss ").on_cyan().black())?;
 
+    // get managers
+    let installed_managers = get_installed_managers();
+
     cliclack::log::remark(format!(
         "Managers: {} ({})",
         installed_managers.join(", "),
         installed_managers.len()
     ))?;
-    if args.interactive {
-        package_name = match cliclack::input("Enter package name: ").interact() {
+
+    // only get the first package in the list for now
+    let package_name: String = if is_interactive {
+        match cliclack::input("Enter package name: ").interact() {
             Ok(name) => name,
             Err(e) => {
                 cliclack::log::error(e)?;
                 return Ok(());
             }
-        };
-    }
+        }
+    } else {
+        packages.get(0).unwrap().to_string()
+    };
+
     cliclack::log::remark(format!(
         "Package: {}",
         style(&package_name).on_black().cyan()

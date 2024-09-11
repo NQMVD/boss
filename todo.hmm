@@ -5,9 +5,11 @@ todo
 				one result of each repo
 				sort by numbers, 1 first
 			description
-		✓ apt
+		✗ apt
 			✓ description
 			✓ virtual package catch
+			versions and links
+				lua?!
 		✓ cargo
 		✗ go
 			✗ no search feature
@@ -47,6 +49,9 @@ todo
 			because i need to start doing that...
 		add suggest crate
 			to implement --expand
+		take inspiration from just
+			clap coloring
+				switch to clap builder instead of derive
 	features
 		traceless
 			optional config file

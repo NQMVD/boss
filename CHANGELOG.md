@@ -1,3 +1,9 @@
+## [0.6.1] - 2024-09-11
+
+upgraded args:
+- switched from clap derive to build
+- added coloring in cargo style
+
 ## [0.6.0] - 2024-08-26
 
 - changed to using progress bar instead of simple spinner

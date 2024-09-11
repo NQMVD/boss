@@ -17,7 +17,7 @@ pub fn check_snap(package_name: &str) -> Result<PackageResult, String> {
     };
     let lines = match check_output(output) {
         Ok(lines) => lines,
-        Err(e) => {
+        Err(_) => {
             warn!("snap show output is empty");
             return Result::Ok(PackageResult::none("snap", package_name));
         }
@@ -51,7 +51,7 @@ pub fn check_snap(package_name: &str) -> Result<PackageResult, String> {
     // ------------------------------------------------------
     // remove the first line
     match lines.iter().next() {
-        Some(line) => (),
+        Some(_) => (),
         None => return Err("snap show output is empty".to_owned()),
     };
 
@@ -92,7 +92,7 @@ pub fn check_snap(package_name: &str) -> Result<PackageResult, String> {
 
     // remove the first line (header)
     match lines.iter().next() {
-        Some(line) => (),
+        Some(_) => (),
         None => return Err("snap show output is empty".to_owned()),
     };
 
