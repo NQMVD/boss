@@ -1,8 +1,14 @@
 # boss
 
-![boss_shot](./assets/boss_shot.png)
+<div align="center">
+  <img alt="boss shot" src="./assets/boss_shot.png" />
+  <br>
+  <img alt="rust" src="https://img.shields.io/badge/Rust-fe7a15?style=for-the-badge&logo=rust&logoSize=auto">
+  <img alt="linux" src="https://img.shields.io/badge/Linux-E95420?style=for-the-badge&logo=linux&logoSize=auto&logoColor=white">
+  <br>
+  <i>The boss of package management.</i>
+</div>
 
-_The boss of package management._
 
 ## Showcase
 <details>
