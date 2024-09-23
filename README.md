@@ -3,8 +3,15 @@
 <div align="center">
   <img alt="boss shot" src="./assets/boss_shot.png" />
   <br>
-  <img alt="rust" src="https://img.shields.io/badge/Rust-fe7a15?style=for-the-badge&logo=rust&logoSize=auto">
-  <img alt="linux" src="https://img.shields.io/badge/Linux-E95420?style=for-the-badge&logo=linux&logoSize=auto&logoColor=white">
+  <a href="https://github.com/NQMVD/boss?tab=readme-ov-file#details">
+	  <img alt="rust" src="https://img.shields.io/badge/Rust-fe7a15?style=for-the-badge&logo=rust&logoColor=white&logoSize=auto&labelColor=gray">
+  <a/>
+  <a href="https://github.com/NQMVD/boss?tab=readme-ov-file#support">
+  	<img alt="linux" src="https://img.shields.io/badge/Linux-E95420?style=for-the-badge&logo=linux&logoColor=white&logoSize=auto&labelColor=gray">
+	</a>
+  <a href="https://just.systems">
+    <img alt="just" src="https://img.shields.io/badge/just-white?style=for-the-badge&logo=just&color=black">
+  </a>
   <br>
   <i>The boss of package management.</i>
 </div>
