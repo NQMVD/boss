@@ -91,11 +91,22 @@
 - pip
 - pypi?
 - pipx?
-- conda?
 - gem?
 
 ## Installation
-### From source (pure bash)
+### From source (via cargo and git)
+```bash
+cargo install --git https://github.com/NQMVD/boss.git
+```
+
+### From source (clone with gh + just)
+```bash
+gh repo clone NQMVD/boss
+cd boss
+just install
+```
+
+### From source
 ```bash
 git clone https://github.com/NQMVD/boss
 cd boss
@@ -103,12 +114,6 @@ cargo build --release
 sudo mv target/release/boss /usr/local/bin
 ```
 
-### From source (gh + just)
-```bash
-gh repo clone NQMVD/boss
-cd boss
-just install
-```
 > binaries will be included at some point
 
 ## Update

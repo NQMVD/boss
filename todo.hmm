@@ -28,7 +28,10 @@ todo
 			table
 				use nu tables for output
 		--expand
-			search for similar like pkg-git
+			search for similar
+				pkg-git
+				pkg3, pkg5.1
+				pkg-bin
 		--selection
 			choose which managers to operate on
 		--short

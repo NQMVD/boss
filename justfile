@@ -16,6 +16,7 @@ test:
     @cargo run -- gpaste && echo "gpaste passed"; hr
     @cargo run -- -q -i || echo "-qi passed"; hr
     @cargo run -- helix -i || echo "helix -i passed"; hr
+    @echo 'All Tests passed!'
 
 # install the release binary to /usr/local/bin
 install:
