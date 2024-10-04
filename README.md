@@ -1,7 +1,7 @@
 # boss
 
 <div align="center">
-  <img alt="boss shot" src="./assets/boss_shot.png" />
+  <img alt="boss shot" src="./.assets/boss_shot.png" />
   <br>
   <a href="https://github.com/NQMVD/boss?tab=readme-ov-file#details">
 	  <img alt="rust" src="https://img.shields.io/badge/Rust-fe7a15?style=for-the-badge&logo=rust&logoColor=white&logoSize=auto&labelColor=gray">
@@ -16,6 +16,7 @@
   <i>The boss of package management.</i>
 </div>
 
+![NOTE] this is the github pages branch, the code is in the main branch.
 
 ## Showcase
 <details>
