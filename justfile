@@ -4,29 +4,29 @@ _default:
     @just --list
     @echo {{ jobs }} jobs available
 
-# debug a run with pkg
-debug pkg:
-    clear; cargo run {{ pkg }}; bat boss.log
-
-# test by running with helix, zellij and gum
-test:
-    @cargo run -- helix && echo "helix passed"; hr
-    @cargo run -- zellij && echo "zellij passed"; hr
-    @cargo run -- gum && echo "gum passed"; hr
-    @cargo run -- gpaste && echo "gpaste passed"; hr
-    @cargo run -- -q -i || echo "-qi passed"; hr
-    @cargo run -- helix -i || echo "helix -i passed"; hr
-    @echo 'All Tests passed!'
-
-# install the release binary to /usr/local/bin
+# install boss via cargo
 install:
     cargo build --release --jobs {{ jobs }}
-    sudo mv -v "./target/release/$(basename {{justfile_directory()}})" /usr/local/bin/
+    cargo install --path .
 
 # fetch git and update dependencies
 @update: && install
     git fetch
     cargo update
+
+# debug a run with pkg
+debug pkg:
+    clear; cargo run {{ pkg }}; bat boss.log
+
+# simple tests
+@test:
+    cargo run -- helix && echo "helix passed"; hr
+    cargo run -- zellij && echo "zellij passed"; hr
+    cargo run -- gum && echo "gum passed"; hr
+    cargo run -- gpaste && echo "gpaste passed"; hr
+    cargo run -- -q -i || echo "-qi passed"; hr
+    cargo run -- helix -i || echo "helix -i passed"; hr
+    echo 'All Tests passed!'
 
 # increase the version and update the changelog
 update-version:
