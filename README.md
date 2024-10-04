@@ -22,16 +22,16 @@
   <summary>open sesame</summary>
 
   ## helix query
-  ![default.tape](./tapes/default.gif)
+  ![default.tape](./.assets/tapes/default.gif)
 
   ## helix query --interactive
-  ![interactive.tape](./tapes/interactive.gif)
+  ![interactive.tape](./.assets/tapes/interactive.gif)
 
   ## shows latest version and installed version
-  ![newversion.tape](./tapes/newversion.gif)
+  ![newversion.tape](./.assets/tapes/newversion.gif)
 
   ## stays quiet for scripts
-  ![quiet.tape](./tapes/quiet.gif)
+  ![quiet.tape](./.assets/tapes/quiet.gif)
 </details>
 
 ## Features
