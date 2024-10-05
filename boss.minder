@@ -1,0 +1,599 @@
+<?xml version="1.0"?>
+<minder version="1.16.4" parent-etag="434925598" etag="23888377">
+  <theme name="dark" label="Dark" index="-1"/>
+  <styles>
+    <style level="0" isset="true" branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="10" nodepadding="10" nodefont="Geist Mono 12" nodemarkup="true" connectiondash="solid" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Geist Mono 10" connectiontwidth="100" calloutfont="Sans 12" calloutpadding="5" calloutptrwidth="20" calloutptrlength="20"/>
+    <style level="1" isset="true" branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true" connectiondash="solid" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Geist Mono 10" connectiontwidth="100" calloutfont="Sans 12" calloutpadding="5" calloutptrwidth="20" calloutptrlength="20"/>
+    <style level="2" isset="true" branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true" connectiondash="solid" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Geist Mono 10" connectiontwidth="100" calloutfont="Sans 12" calloutpadding="5" calloutptrwidth="20" calloutptrlength="20"/>
+    <style level="3" isset="true" branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true" connectiondash="solid" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Geist Mono 10" connectiontwidth="100" calloutfont="Sans 12" calloutpadding="5" calloutptrwidth="20" calloutptrlength="20"/>
+    <style level="4" isset="true" branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true" connectiondash="solid" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Geist Mono 10" connectiontwidth="100" calloutfont="Sans 12" calloutpadding="5" calloutptrwidth="20" calloutptrlength="20"/>
+    <style level="5" isset="true" branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true" connectiondash="solid" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Geist Mono 10" connectiontwidth="100" calloutfont="Sans 12" calloutpadding="5" calloutptrwidth="20" calloutptrlength="20"/>
+    <style level="6" isset="true" branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true" connectiondash="solid" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Geist Mono 10" connectiontwidth="100" calloutfont="Sans 12" calloutpadding="5" calloutptrwidth="20" calloutptrlength="20"/>
+    <style level="7" isset="true" branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true" connectiondash="solid" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Geist Mono 10" connectiontwidth="100" calloutfont="Sans 12" calloutpadding="5" calloutptrwidth="20" calloutptrlength="20"/>
+    <style level="8" isset="true" branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true" connectiondash="solid" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Geist Mono 10" connectiontwidth="100" calloutfont="Sans 12" calloutpadding="5" calloutptrwidth="20" calloutptrlength="20"/>
+    <style level="9" isset="true" branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true" connectiondash="solid" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Geist Mono 10" connectiontwidth="100" calloutfont="Sans 12" calloutpadding="5" calloutptrwidth="20" calloutptrlength="20"/>
+    <style level="10" isset="true" branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true" connectiondash="solid" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Geist Mono 10" connectiontwidth="100" calloutfont="Sans 12" calloutpadding="5" calloutptrwidth="20" calloutptrlength="20"/>
+  </styles>
+  <images/>
+  <nodes>
+    <node id="0" posx="138.75277709960938" posy="271.9229736328125" width="88" height="47" side="left" fold="false" treesize="2628" summarized="false" layout="Horizontal" group="false">
+      <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="rounded" nodewidth="200" nodeborderwidth="-6" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+      <nodename maxwidth="200">
+        <text data="boss"/>
+      </nodename>
+      <nodenote></nodenote>
+      <nodes>
+        <node id="1" posx="306.75277709960938" posy="-854.0770263671875" width="168" height="47" side="right" fold="false" treesize="376" color="#c6262e" colorroot="false" summarized="false" layout="Horizontal" group="true">
+          <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="124" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+          <nodename maxwidth="124">
+            <text data="add managers"/>
+          </nodename>
+          <nodenote></nodenote>
+          <nodes>
+            <node id="8" posx="554.75277709960938" posy="-1018.5770263671875" width="78" height="47" task="1" side="right" fold="false" treesize="47" color="#c6262e" colorroot="false" summarized="false" layout="Horizontal" group="false">
+              <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="124" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+              <nodename maxwidth="124">
+                <text data="apt"/>
+              </nodename>
+              <nodenote></nodenote>
+            </node>
+            <node id="9" posx="554.75277709960938" posy="-971.5770263671875" width="98" height="47" task="1" side="right" fold="false" treesize="47" color="#c6262e" colorroot="false" summarized="false" layout="Horizontal" group="false">
+              <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="124" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+              <nodename maxwidth="124">
+                <text data="cargo"/>
+              </nodename>
+              <nodenote></nodenote>
+            </node>
+            <node id="11" posx="554.75277709960938" posy="-924.5770263671875" width="88" height="47" task="1" side="right" fold="false" treesize="47" color="#c6262e" colorroot="false" summarized="false" layout="Horizontal" group="false">
+              <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="124" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+              <nodename maxwidth="124">
+                <text data="snap"/>
+              </nodename>
+              <nodenote></nodenote>
+            </node>
+            <node id="12" posx="554.75277709960938" posy="-877.5770263671875" width="118" height="47" task="0" side="right" fold="false" treesize="47" color="#c6262e" colorroot="false" summarized="false" layout="Horizontal" group="false">
+              <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="124" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+              <nodename maxwidth="124">
+                <text data="flatpak"/>
+              </nodename>
+              <nodenote></nodenote>
+            </node>
+            <node id="7" posx="554.75277709960938" posy="-830.5770263671875" width="78" height="47" task="0" side="right" fold="false" treesize="47" color="#c6262e" colorroot="false" summarized="false" layout="Horizontal" group="false">
+              <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="124" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+              <nodename maxwidth="124">
+                <text data="yay"/>
+              </nodename>
+              <nodenote></nodenote>
+            </node>
+            <node id="13" posx="554.75277709960938" posy="-783.5770263671875" width="88" height="47" task="0" side="right" fold="false" treesize="47" color="#c6262e" colorroot="false" summarized="false" layout="Horizontal" group="false">
+              <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="124" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+              <nodename maxwidth="124">
+                <text data="brew"/>
+              </nodename>
+              <nodenote></nodenote>
+            </node>
+            <node id="10" posx="554.75277709960938" posy="-736.5770263671875" width="68" height="47" task="0" side="right" fold="false" treesize="47" color="#c6262e" colorroot="false" summarized="false" layout="Horizontal" group="false">
+              <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="124" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+              <nodename maxwidth="124">
+                <text data="go"/>
+              </nodename>
+              <nodenote></nodenote>
+            </node>
+            <node id="14" posx="554.75277709960938" posy="-689.5770263671875" width="78" height="47" task="0" side="right" fold="false" treesize="47" color="#c6262e" colorroot="false" summarized="false" layout="Horizontal" group="false">
+              <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="124" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+              <nodename maxwidth="124">
+                <text data="pip"/>
+              </nodename>
+              <nodenote></nodenote>
+            </node>
+          </nodes>
+        </node>
+        <node id="2" posx="306.75277709960938" posy="-214.0770263671875" width="118" height="47" side="right" fold="false" treesize="904" color="#f37329" colorroot="false" summarized="false" layout="Horizontal" group="false">
+          <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+          <nodename maxwidth="200">
+            <text data="options"/>
+          </nodename>
+          <nodenote></nodenote>
+          <nodes>
+            <node id="18" posx="504.75277709960938" posy="-642.5770263671875" width="158" height="47" task="1" side="right" fold="false" treesize="47" color="#f37329" colorroot="false" summarized="false" layout="Horizontal" group="false">
+              <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+              <nodename maxwidth="200">
+                <text data="interactive"/>
+              </nodename>
+              <nodenote></nodenote>
+            </node>
+            <node id="33" posx="504.75277709960938" posy="-553.0770263671875" width="98" height="47" side="right" fold="false" treesize="132" color="#f37329" colorroot="false" summarized="false" layout="Horizontal" group="false">
+              <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+              <nodename maxwidth="200">
+                <text data="quiet"/>
+              </nodename>
+              <nodenote></nodenote>
+              <nodes>
+                <node id="34" posx="682.75277709960938" posy="-595.5770263671875" width="228" height="66" task="1" side="right" fold="false" treesize="66" color="#f37329" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                  <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                  <nodename maxwidth="200">
+                    <text data="return with 0 when installed or found"/>
+                  </nodename>
+                  <nodenote></nodenote>
+                </node>
+                <node id="35" posx="682.75277709960938" posy="-529.5770263671875" width="228" height="66" task="1" side="right" fold="false" treesize="66" color="#f37329" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                  <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                  <nodename maxwidth="200">
+                    <text data="return with 1 when not found at all"/>
+                  </nodename>
+                  <nodenote></nodenote>
+                </node>
+              </nodes>
+            </node>
+            <node id="15" posx="504.75277709960938" posy="-421.0770263671875" width="158" height="47" side="right" fold="false" treesize="132" color="#f37329" colorroot="false" summarized="false" layout="Horizontal" group="false">
+              <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+              <nodename maxwidth="200">
+                <text data="description"/>
+              </nodename>
+              <nodenote></nodenote>
+              <nodes>
+                <node id="17" posx="742.75277709960938" posy="-463.5770263671875" width="158" height="47" task="0" side="right" fold="false" treesize="47" color="#f37329" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                  <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                  <nodename maxwidth="200">
+                    <text data="default: true"/>
+                  </nodename>
+                  <nodenote></nodenote>
+                </node>
+                <node id="16" posx="742.75277709960938" posy="-416.5770263671875" width="208" height="85" task="0" side="right" fold="false" treesize="85" color="#f37329" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                  <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                  <nodename maxwidth="200">
+                    <text data="shows a short description of the package"/>
+                  </nodename>
+                  <nodenote></nodenote>
+                </node>
+              </nodes>
+            </node>
+            <node id="19" posx="504.75277709960938" posy="-261.0770263671875" width="108" height="47" side="right" fold="false" treesize="188" color="#f37329" colorroot="false" summarized="false" layout="Horizontal" group="false">
+              <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+              <nodename maxwidth="200">
+                <text data="format"/>
+              </nodename>
+              <nodenote></nodenote>
+              <nodes>
+                <node id="20" posx="692.75277709960938" posy="-284.5770263671875" width="78" height="47" side="right" fold="false" treesize="141" color="#f37329" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                  <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                  <nodename maxwidth="200">
+                    <text data="table"/>
+                  </nodename>
+                  <nodenote></nodenote>
+                  <nodes>
+                    <node id="22" posx="870.75277709960938" posy="-308.0770263671875" width="88" height="47" side="right" fold="false" treesize="94" color="#f37329" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                      <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                      <nodename maxwidth="200">
+                        <text data="styles"/>
+                      </nodename>
+                      <nodenote></nodenote>
+                      <nodes>
+                        <node id="23" posx="1058.7527770996094" posy="-331.5770263671875" width="48" height="47" side="right" fold="false" treesize="47" color="#f37329" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                          <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                          <nodename maxwidth="200">
+                            <text data="nu"/>
+                          </nodename>
+                          <nodenote></nodenote>
+                        </node>
+                        <node id="24" posx="1058.7527770996094" posy="-284.5770263671875" width="168" height="47" side="right" fold="false" treesize="47" color="#f37329" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                          <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                          <nodename maxwidth="200">
+                            <text data="ascii markdown"/>
+                          </nodename>
+                          <nodenote></nodenote>
+                        </node>
+                      </nodes>
+                    </node>
+                    <node id="25" posx="870.75277709960938" posy="-237.5770263671875" width="148" height="47" side="right" fold="false" treesize="47" color="#f37329" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                      <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                      <nodename maxwidth="200">
+                        <text data="compact info"/>
+                      </nodename>
+                      <nodenote></nodenote>
+                    </node>
+                  </nodes>
+                </node>
+                <node id="21" posx="692.75277709960938" posy="-190.5770263671875" width="58" height="47" task="0" side="right" fold="false" treesize="47" color="#f37329" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                  <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                  <nodename maxwidth="200">
+                    <text data="csv"/>
+                  </nodename>
+                  <nodenote></nodenote>
+                </node>
+              </nodes>
+            </node>
+            <node id="26" posx="504.75277709960938" posy="-87.0770263671875" width="108" height="47" side="right" fold="false" treesize="160" color="#f37329" colorroot="false" summarized="false" layout="Horizontal" group="false">
+              <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+              <nodename maxwidth="200">
+                <text data="expand"/>
+              </nodename>
+              <nodenote></nodenote>
+              <nodes>
+                <node id="27" posx="692.75277709960938" posy="-96.5770263671875" width="198" height="66" side="right" fold="false" treesize="160" color="#f37329" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                  <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                  <nodename maxwidth="200">
+                    <text data="suggest similar packages"/>
+                  </nodename>
+                  <nodenote></nodenote>
+                  <nodes>
+                    <node id="28" posx="970.75277709960938" posy="-143.5770263671875" width="118" height="47" task="0" side="right" fold="false" treesize="47" color="#f37329" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                      <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                      <nodename maxwidth="200">
+                        <text data="pkg-git"/>
+                      </nodename>
+                      <nodenote></nodenote>
+                    </node>
+                    <node id="29" posx="970.75277709960938" posy="-96.5770263671875" width="188" height="66" task="0" side="right" fold="false" treesize="66" color="#f37329" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                      <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                      <nodename maxwidth="200">
+                        <text data="pkg3 (pkg with version)"/>
+                      </nodename>
+                      <nodenote></nodenote>
+                    </node>
+                    <node id="30" posx="970.75277709960938" posy="-30.5770263671875" width="178" height="47" task="0" side="right" fold="false" treesize="47" color="#f37329" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                      <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                      <nodename maxwidth="200">
+                        <text data="pkg-bin (yay)"/>
+                      </nodename>
+                      <nodenote></nodenote>
+                    </node>
+                  </nodes>
+                </node>
+              </nodes>
+            </node>
+            <node id="31" posx="504.75277709960938" posy="25.9229736328125" width="138" height="47" side="right" fold="false" treesize="66" color="#f37329" colorroot="false" summarized="false" layout="Horizontal" group="false">
+              <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+              <nodename maxwidth="200">
+                <text data="selection"/>
+              </nodename>
+              <nodenote></nodenote>
+              <nodes>
+                <node id="32" posx="722.75277709960938" posy="16.4229736328125" width="198" height="66" task="0" side="right" fold="false" treesize="66" color="#f37329" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                  <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                  <nodename maxwidth="200">
+                    <text data="choose which managers to use"/>
+                  </nodename>
+                  <nodenote></nodenote>
+                </node>
+              </nodes>
+            </node>
+            <node id="56" posx="504.75277709960938" posy="91.9229736328125" width="128" height="47" side="right" fold="false" treesize="66" color="#f37329" colorroot="false" summarized="false" layout="Horizontal" group="false">
+              <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+              <nodename maxwidth="200">
+                <text data="priority"/>
+              </nodename>
+              <nodenote></nodenote>
+              <nodes>
+                <node id="57" posx="712.75277709960938" posy="82.4229736328125" width="218" height="66" task="0" side="right" fold="false" treesize="66" color="#f37329" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                  <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                  <nodename maxwidth="200">
+                    <text data="priority list for managers"/>
+                  </nodename>
+                  <nodenote></nodenote>
+                </node>
+              </nodes>
+            </node>
+            <node id="58" posx="504.75277709960938" posy="181.4229736328125" width="98" height="47" side="right" fold="false" treesize="113" color="#f37329" colorroot="false" summarized="false" layout="Horizontal" group="false">
+              <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+              <nodename maxwidth="200">
+                <text data="cache"/>
+              </nodename>
+              <nodenote></nodenote>
+              <nodes>
+                <node id="59" posx="682.75277709960938" posy="171.9229736328125" width="238" height="66" side="right" fold="false" treesize="113" color="#f37329" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                  <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                  <nodename maxwidth="200">
+                    <text data="cache results for a day"/>
+                  </nodename>
+                  <nodenote></nodenote>
+                  <nodes>
+                    <node id="60" posx="1000.7527770996094" posy="148.4229736328125" width="208" height="66" task="0" side="right" fold="false" treesize="66" color="#f37329" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                      <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                      <nodename maxwidth="200">
+                        <text data="store results in toml file"/>
+                      </nodename>
+                      <nodenote></nodenote>
+                    </node>
+                    <node id="61" posx="1000.7527770996094" posy="214.4229736328125" width="198" height="47" task="0" side="right" fold="false" treesize="47" color="#f37329" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                      <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                      <nodename maxwidth="200">
+                        <text data="with timestamps"/>
+                      </nodename>
+                      <nodenote></nodenote>
+                    </node>
+                  </nodes>
+                </node>
+              </nodes>
+            </node>
+          </nodes>
+        </node>
+        <node id="4" posx="306.75277709960938" posy="530.4229736328125" width="128" height="47" side="right" fold="false" treesize="585" color="#f9c440" colorroot="false" summarized="false" layout="Horizontal" group="false">
+          <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+          <nodename maxwidth="200">
+            <text data="optimize"/>
+          </nodename>
+          <nodenote></nodenote>
+          <nodes>
+            <node id="36" posx="514.75277709960938" posy="261.4229736328125" width="208" height="85" side="right" fold="false" treesize="85" color="#f9c440" colorroot="false" summarized="false" layout="Horizontal" group="false">
+              <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+              <nodename maxwidth="200">
+                <text data="use a parser for command output parsing"/>
+              </nodename>
+              <nodenote></nodenote>
+              <nodes>
+                <node id="37" posx="802.75277709960938" posy="280.4229736328125" width="148" height="47" task="1" side="right" fold="false" treesize="47" color="#f9c440" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                  <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                  <nodename maxwidth="200">
+                    <text data="strp crate"/>
+                  </nodename>
+                  <nodenote></nodenote>
+                </node>
+              </nodes>
+            </node>
+            <node id="48" posx="514.75277709960938" posy="346.4229736328125" width="208" height="66" side="right" fold="false" treesize="66" color="#f9c440" colorroot="false" summarized="false" layout="Horizontal" group="false">
+              <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+              <nodename maxwidth="200">
+                <text data="take inspiration from just"/>
+              </nodename>
+              <nodenote></nodenote>
+              <nodes>
+                <node id="49" posx="802.75277709960938" posy="355.9229736328125" width="218" height="47" side="right" fold="false" treesize="66" color="#f9c440" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                  <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                  <nodename maxwidth="200">
+                    <text data="clap cli coloring"/>
+                  </nodename>
+                  <nodenote></nodenote>
+                  <nodes>
+                    <node id="50" posx="1100.7527770996094" posy="346.4229736328125" width="238" height="66" task="1" side="right" fold="false" treesize="66" color="#f9c440" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                      <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                      <nodename maxwidth="200">
+                        <text data="switch from derive to builder for clap"/>
+                      </nodename>
+                      <nodenote></nodenote>
+                    </node>
+                  </nodes>
+                </node>
+              </nodes>
+            </node>
+            <node id="38" posx="514.75277709960938" posy="445.4229736328125" width="208" height="66" side="right" fold="false" treesize="132" color="#f9c440" colorroot="false" summarized="false" layout="Horizontal" group="false">
+              <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+              <nodename maxwidth="200">
+                <text data="take inspiration from topgrade-rs"/>
+              </nodename>
+              <nodenote></nodenote>
+              <nodes>
+                <node id="39" posx="802.75277709960938" posy="412.4229736328125" width="238" height="66" task="0" side="right" fold="false" treesize="66" color="#f9c440" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                  <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                  <nodename maxwidth="200">
+                    <text data="how to read command output"/>
+                  </nodename>
+                  <nodenote></nodenote>
+                </node>
+                <node id="40" posx="802.75277709960938" posy="478.4229736328125" width="228" height="66" task="0" side="right" fold="false" treesize="66" color="#f9c440" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                  <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                  <nodename maxwidth="200">
+                    <text data="modules and layout of code"/>
+                  </nodename>
+                  <nodenote></nodenote>
+                </node>
+              </nodes>
+            </node>
+            <node id="41" posx="514.75277709960938" posy="544.4229736328125" width="178" height="66" side="right" fold="false" treesize="66" color="#f9c440" colorroot="false" summarized="false" layout="Horizontal" group="false">
+              <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+              <nodename maxwidth="200">
+                <text data="add divan for benching"/>
+              </nodename>
+              <nodenote></nodenote>
+              <nodes>
+                <node id="42" posx="772.75277709960938" posy="544.4229736328125" width="248" height="66" task="0" side="right" fold="false" treesize="66" color="#f9c440" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                  <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                  <nodename maxwidth="200">
+                    <text data="after implementing file checking though"/>
+                  </nodename>
+                  <nodenote></nodenote>
+                </node>
+              </nodes>
+            </node>
+            <node id="43" posx="514.75277709960938" posy="629.4229736328125" width="138" height="47" side="right" fold="false" treesize="85" color="#f9c440" colorroot="false" summarized="false" layout="Horizontal" group="false">
+              <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+              <nodename maxwidth="200">
+                <text data="add tests"/>
+              </nodename>
+              <nodenote></nodenote>
+              <nodes>
+                <node id="44" posx="732.75277709960938" posy="610.4229736328125" width="247" height="85" task="0" side="right" fold="false" treesize="85" color="#f9c440" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                  <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                  <nodename maxwidth="200">
+                    <text data="...because i need to start doing that in general..."/>
+                  </nodename>
+                  <nodenote></nodenote>
+                </node>
+              </nodes>
+            </node>
+            <node id="45" posx="514.75277709960938" posy="747.4229736328125" width="218" height="47" side="right" fold="false" treesize="151" color="#f9c440" colorroot="false" summarized="false" layout="Horizontal" group="false">
+              <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+              <nodename maxwidth="200">
+                <text data="add suggest crate"/>
+              </nodename>
+              <nodenote></nodenote>
+              <nodes>
+                <node id="46" posx="812.75277709960938" posy="695.4229736328125" width="197" height="66" task="0" side="right" fold="false" treesize="66" color="#f9c440" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                  <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                  <nodename maxwidth="200">
+                    <text data="to implement --expand feature"/>
+                  </nodename>
+                  <nodenote></nodenote>
+                </node>
+                <node id="47" posx="812.75277709960938" posy="761.4229736328125" width="228" height="85" task="0" side="right" fold="false" treesize="85" color="#f9c440" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                  <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                  <nodename maxwidth="200">
+                    <text data="to suggest popular know packages i guess"/>
+                  </nodename>
+                  <nodenote></nodenote>
+                </node>
+              </nodes>
+            </node>
+          </nodes>
+        </node>
+        <node id="5" posx="306.75277709960938" posy="1020.9229736328125" width="128" height="47" side="right" fold="false" treesize="396" color="#68b723" colorroot="false" summarized="false" layout="Horizontal" group="false">
+          <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+          <nodename maxwidth="200">
+            <text data="features"/>
+          </nodename>
+          <nodenote></nodenote>
+          <nodes>
+            <node id="51" posx="514.75277709960938" posy="940.9229736328125" width="138" height="47" side="right" fold="false" treesize="236" color="#68b723" colorroot="false" summarized="false" layout="Horizontal" group="false">
+              <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+              <nodename maxwidth="200">
+                <text data="traceless"/>
+              </nodename>
+              <nodenote></nodenote>
+              <nodes>
+                <node id="53" posx="732.75277709960938" posy="846.4229736328125" width="188" height="66" task="0" side="right" fold="false" treesize="66" color="#68b723" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                  <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                  <nodename maxwidth="200">
+                    <text data="means optional config file"/>
+                  </nodename>
+                  <nodenote></nodenote>
+                </node>
+                <node id="54" posx="732.75277709960938" posy="912.4229736328125" width="248" height="85" task="0" side="right" fold="false" treesize="85" color="#68b723" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                  <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                  <nodename maxwidth="200">
+                    <text data="default configs will be baked in the binary"/>
+                  </nodename>
+                  <nodenote></nodenote>
+                </node>
+                <node id="55" posx="732.75277709960938" posy="997.4229736328125" width="238" height="85" task="0" side="right" fold="false" treesize="85" color="#68b723" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                  <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                  <nodename maxwidth="200">
+                    <text data="generate a default.toml config file with a command"/>
+                  </nodename>
+                  <nodenote></nodenote>
+                </node>
+              </nodes>
+            </node>
+            <node id="52" posx="514.75277709960938" posy="1138.9229736328125" width="138" height="47" side="right" fold="false" treesize="160" color="#68b723" colorroot="false" summarized="false" layout="Horizontal" group="false">
+              <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+              <nodename maxwidth="200">
+                <text data="trackdown"/>
+              </nodename>
+              <nodenote></nodenote>
+              <nodes>
+                <node id="63" posx="732.75277709960938" posy="1119.9229736328125" width="248" height="85" side="right" fold="false" treesize="160" color="#68b723" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                  <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                  <nodename maxwidth="200">
+                    <text data="means it tracks down the packages if necessary"/>
+                  </nodename>
+                  <nodenote></nodenote>
+                  <nodes>
+                    <node id="64" posx="1060.7527770996094" posy="1082.4229736328125" width="178" height="47" task="0" side="right" fold="false" treesize="47" color="#68b723" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                      <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                      <nodename maxwidth="200">
+                        <text data="find location"/>
+                      </nodename>
+                      <nodenote></nodenote>
+                    </node>
+                    <node id="65" posx="1060.7527770996094" posy="1129.4229736328125" width="238" height="47" task="0" side="right" fold="false" treesize="47" color="#68b723" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                      <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                      <nodename maxwidth="200">
+                        <text data="if included in PATH"/>
+                      </nodename>
+                      <nodenote></nodenote>
+                    </node>
+                    <node id="66" posx="1060.7527770996094" posy="1176.4229736328125" width="228" height="66" task="0" side="right" fold="false" treesize="66" color="#68b723" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                      <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                      <nodename maxwidth="200">
+                        <text data="if callable with specified shell(s)"/>
+                      </nodename>
+                      <nodenote></nodenote>
+                    </node>
+                  </nodes>
+                </node>
+              </nodes>
+            </node>
+          </nodes>
+        </node>
+        <node id="6" posx="306.75277709960938" posy="1402.4229736328125" width="88" height="47" side="right" fold="false" treesize="367" color="#3689e6" colorroot="false" summarized="false" layout="Horizontal" group="false">
+          <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+          <nodename maxwidth="200">
+            <text data="next"/>
+          </nodename>
+          <nodenote></nodenote>
+          <nodes>
+            <node id="67" posx="474.75277709960938" posy="1242.4229736328125" width="188" height="47" task="0" side="right" fold="false" treesize="47" color="#3689e6" colorroot="false" summarized="false" layout="Horizontal" group="false">
+              <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+              <nodename maxwidth="200">
+                <text data="ask to install"/>
+              </nodename>
+              <nodenote></nodenote>
+            </node>
+            <node id="68" posx="474.75277709960938" posy="1425.9229736328125" width="188" height="47" side="right" fold="false" treesize="320" color="#3689e6" colorroot="false" summarized="false" layout="Horizontal" group="false">
+              <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+              <nodename maxwidth="200">
+                <text data="install script"/>
+              </nodename>
+              <nodenote></nodenote>
+              <nodes>
+                <node id="75" posx="742.75277709960938" posy="1289.4229736328125" width="248" height="66" task="0" side="right" fold="false" treesize="66" color="#3689e6" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                  <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                  <nodename maxwidth="200">
+                    <text data="needs release builds FIRST"/>
+                  </nodename>
+                  <nodenote></nodenote>
+                </node>
+                <node id="69" posx="742.75277709960938" posy="1355.4229736328125" width="238" height="66" task="0" side="right" fold="false" treesize="66" color="#3689e6" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                  <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                  <nodename maxwidth="200">
+                    <text data="cargo install works but not enough"/>
+                  </nodename>
+                  <nodenote></nodenote>
+                </node>
+                <node id="74" posx="742.75277709960938" posy="1421.4229736328125" width="228" height="47" task="0" side="right" fold="false" treesize="47" color="#3689e6" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                  <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                  <nodename maxwidth="200">
+                    <text data="try cargo binstall"/>
+                  </nodename>
+                  <nodenote></nodenote>
+                </node>
+                <node id="70" posx="742.75277709960938" posy="1505.9229736328125" width="208" height="66" side="right" fold="false" treesize="141" color="#3689e6" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                  <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                  <nodename maxwidth="200">
+                    <text data="take inspiration from"/>
+                  </nodename>
+                  <nodenote></nodenote>
+                  <nodes>
+                    <node id="71" posx="1030.7527770996094" posy="1468.4229736328125" width="128" height="47" task="0" side="right" fold="false" treesize="47" color="#3689e6" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                      <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                      <nodename maxwidth="200">
+                        <text data="starship"/>
+                      </nodename>
+                      <nodenote></nodenote>
+                    </node>
+                    <node id="72" posx="1030.7527770996094" posy="1515.4229736328125" width="118" height="47" task="0" side="right" fold="false" treesize="47" color="#3689e6" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                      <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                      <nodename maxwidth="200">
+                        <text data="shuttle"/>
+                      </nodename>
+                      <nodenote></nodenote>
+                    </node>
+                    <node id="73" posx="1030.7527770996094" posy="1562.4229736328125" width="78" height="47" task="0" side="right" fold="false" treesize="47" color="#3689e6" colorroot="false" summarized="false" layout="Horizontal" group="false">
+                      <style branchmargin="100" branchradius="25" linktype="curved" linkwidth="2" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Geist Mono 12" nodemarkup="true"/>
+                      <nodename maxwidth="200">
+                        <text data="zed"/>
+                      </nodename>
+                      <nodenote></nodenote>
+                    </node>
+                  </nodes>
+                </node>
+              </nodes>
+            </node>
+          </nodes>
+        </node>
+      </nodes>
+    </node>
+  </nodes>
+  <groups/>
+  <stickers/>
+  <nodelinks id="0"/>
+</minder>
