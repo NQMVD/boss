@@ -52,9 +52,9 @@ todo
 			because i need to start doing that...
 		add suggest crate
 			to implement --expand
-		take inspiration from just
-			clap coloring
-				switch to clap builder instead of derive
+		✓ take inspiration from just
+			✓ clap coloring
+				✓ switch to clap builder instead of derive
 	features
 		traceless
 			optional config file

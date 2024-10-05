@@ -60,7 +60,7 @@
 - multithreading or async
 
 > theres also a plan for taking inspiration from topgrade on how to work with different managers.
-> (also see the [todo mindmap](todo.hmm) for details)
+> (also see the [todo mindmap](./.assets/boss_map.jpg) for details)
 
 
 ## Support
