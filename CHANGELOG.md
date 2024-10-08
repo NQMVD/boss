@@ -1,3 +1,7 @@
+## [0.6.2] - 2024-10-08
+
+better arg parsing for packages
+
 ## [0.6.1] - 2024-09-11
 
 upgraded args:

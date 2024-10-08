@@ -293,11 +293,13 @@ fn main() -> std::io::Result<()> {
     let matches = cli().try_get_matches().unwrap_or_else(|e| e.exit());
     debug!("Matches: {:?}", matches);
 
-    let packages = matches
-        .get_many::<String>("package")
-        .unwrap_or_default()
-        .map(|v| v.as_str())
-        .collect::<Vec<_>>();
+    let packages: Vec<&str> = match matches.get_many::<String>("package") {
+        Some(vals) => vals.map(|v| v.as_str()).collect(),
+        None => {
+            eprintln!("No packages provided.");
+            std::process::exit(1);
+        }
+    };
     debug!("Packages: {:?}", packages);
 
     let is_interactive = matches.get_flag("interactive");
