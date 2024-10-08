@@ -140,7 +140,7 @@ cargo install --path .
 cargo install boss-cli
 ```
 
-> with [cargo-update]()
+> with [cargo-update](https://crates.io/crates/cargo-update)
 ```bash
 cargo install-update boss-cli
 ```
