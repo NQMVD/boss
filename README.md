@@ -16,6 +16,22 @@
   <i>The boss of package management.</i>
 </div>
 
+## Usage
+Just give it a package name and it will collect info about it from your available package managers.
+It will show you an entry for each manager: a state and an optional version.
+There is three states:
+1. Installed
+2. Not installed, but available
+3. Not available (not found)
+
+Oh and it sorts the results based on the state.
+And when the new table format is finally implemented it will be as compact and clean as possible.
+
+> [!WARNING]
+> `boss` is still in development and far from being fully featured.
+
+> [!TIP]
+> ... but you can already use it anyways! Let me know how you like it.
 
 ## Showcase
 <details>
@@ -33,23 +49,6 @@
   ## stays quiet for scripts
   ![quiet.tape](./.assets/tapes/quiet.gif)
 </details>
-
-## Usage
-Just give it a package name and it will collect info about it from your available package managers.
-It will show you an entry for each manager: a state and an optional version.
-There is three states:
-1. Installed
-2. Not installed, but available
-3. Not available (not found)
-
-Oh and it sorts the results based on the state.
-And when the new table format is finally implemented it will be as compact and clean as possible.
-
-> [!WARNING]
-> `boss` is still in development and far from being fully featured.
-
-> [!TIP]
-> ... but you can already use it anyways! Let me know how you like it.
 
 ## Roadmap
 > theres also a [mind map](./.assets/boss_map.jpg) that's a little more structured
@@ -103,39 +102,53 @@ And when the new table format is finally implemented it will be as compact and c
 
 
 ## Installation
-### From source (via cargo and git)
+### From source
+> with cargo (recommended)
+```bash
+cargo install boss-cli
+```
+
+> [!NOTE]
+> the crate for boss is called [boss-cli](https://crates.io/crates/boss-cli) as there's already a baseball progam called [boss](https://crates.io/crates/boss)...
+
+> with cargo via git
 ```bash
 cargo install --git https://github.com/NQMVD/boss.git
 ```
 
-### From source (clone with gh + just)
+> clone the repo (with gh)
 ```bash
 gh repo clone NQMVD/boss
 cd boss
-just install
+cargo install --path .
 ```
 
-### From source
+> clone the repo
 ```bash
 git clone https://github.com/NQMVD/boss
 cd boss
-cargo build --release
-sudo mv target/release/boss /usr/local/bin
+cargo install --path .
 ```
 
-> binaries will be included at some point
+> [!NOTE]
+> binaries will be included at some point...
 
 ## Update
-### From source (pure bash)
+### From source
+> with cargo
 ```bash
-git pull
-cargo build --release
-sudo mv target/release/boss /usr/local/bin
+cargo install boss-cli
 ```
 
-### From source (just)
+> with [cargo-update]()
 ```bash
-just update
+cargo install-update boss-cli
+```
+
+> update the repo
+```bash
+git pull
+cargo install --path .
 ```
 
 
