@@ -34,64 +34,73 @@
   ![quiet.tape](./.assets/tapes/quiet.gif)
 </details>
 
-## Features
-### Currently
-- checks all available package managers for a given package:
-  - if its **installed**,
-  - if not, if its **available to download** with a manager.
-- shows descriptions for available packages
-- shows the **latest version** of the package
-- shows the **installed version** of the package
-- quiet flag to only return with 0 or 1
-- interative flag to ask for user input
+## Usage
+Just give it a package name and it will collect info about it from your available package managers.
+It will show you an entry for each manager: a state and an optional version.
+There is three states:
+1. Installed
+2. Not installed, but available
+3. Not available (not found)
 
-### Planned
-- check for similar package names (like `pkg-cli`, `pkg-git`, `pkg-bin`, `pkg-2`)
-- preferences (sorting of order of managers)
-- outputs:
-  - pretty cliclack
-  - plain (dont use cliclack for output but plain text or markdown)
-  - table (use nu)
-- read files instead of calling commands when possible
-- check mutiple packages at once
-- continue with a prompt what to do (install, update, etc.)
-- config file
-- more checks (validate location, sourced in path, etc.)
-- multithreading or async
+Oh and it sorts the results based on the state.
+And when the new table format is finally implemented it will be as compact and clean as possible.
 
-> theres also a plan for taking inspiration from topgrade on how to work with different managers.
-> (also see the [todo mindmap](./.assets/boss_map.jpg) for details)
+> [!WARNING]
+> `boss` is still in development and far from being fully featured.
 
+> [!TIP]
+> ... but you can already use it anyways! Let me know how you like it.
+
+## Roadmap
+> theres also a [mind map](./.assets/boss_map.jpg) that's a little more structured
+
+- [x] check all available package managers for a given package:
+  - [x] if it's **installed**,
+  - [x] if not, if it's **available to download** with a manager.
+- [x] show descriptions for available packages
+- [x] show the **latest version** of the package
+- [x] show the **installed version** of the package
+- [x] quiet flag to only return with 0 or 1
+- [x] interative flag to prompt the user
+- [ ] continue with a prompt what to do (install, update, etc.)
+- [ ] check for similar package names (like `pkg-cli`, `pkg-git`, `pkg-bin`, `pkg-2`)
+- [ ] preferences (sorting of order of managers)
+- [ ] outputs:
+  - [x] pretty cliclack
+  - [ ] plain (dont use cliclack for output but plain text or markdown)
+  - [ ] table (use nu)
+- [ ] read files instead of calling commands when possible
+- [ ] check mutiple packages
+- [ ] config file
+- [ ] cache results for a day
+- [ ] more checks (validate location, sourced in path, etc.)
+- [ ] multithreading or async (main bottleneck right now are the individual managers)
+- [ ] taking inspiration from topgrade on how to work with different managers.
 
 ## Support
-### Currently
 #### General
-- snap
-- apt
-- yay (old code)
+- [x] apt
+- [x] snap
+- [ ] yay
+- [ ] flatpak
+- [ ] brew?
+- [ ] pacman (if yay is not installed)
+- [ ] paru (if yay is not installed)
+- [ ] dnf?
+- [ ] rpm?
+- [ ] zypper?
+- [ ] nix?
 
 #### Language specific
-- cargo
-- go (disabled for now)
+- [x] cargo
+- [ ] go (disabled for now)
+- [ ] npm
+- [ ] yarn?
+- [ ] pip
+- [ ] pypi?
+- [ ] pipx?
+- [ ] gem?
 
-### Planned
-#### General
-- flatpak
-- brew?
-- pacman (if yay is not installed)
-- paru (if yay is not installed)
-- dnf?
-- rpm?
-- zypper?
-- nix?
-
-#### Language specific
-- npm
-- yarn?
-- pip
-- pypi?
-- pipx?
-- gem?
 
 ## Installation
 ### From source (via cargo and git)
