@@ -3,6 +3,7 @@
 <div align="center">
   <img alt="boss shot" src="./.assets/boss_shot.png" />
   <br>
+	![](https://img.shields.io/github/last-commit/NQMVD/boss?&style=for-the-badge&color=FFB1C8&logoColor=D9E0EE&labelColor=292324)
   <a href="https://github.com/NQMVD/boss?tab=readme-ov-file#details">
 	  <img alt="rust" src="https://img.shields.io/badge/Rust-fe7a15?style=for-the-badge&logo=rust&logoColor=white&logoSize=auto&labelColor=gray">
   <a/>
