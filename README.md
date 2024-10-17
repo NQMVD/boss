@@ -2,18 +2,19 @@
 
 <div align="center">
   <img alt="boss shot" src="./.assets/boss_shot.png" />
-  <br>
-	![](https://img.shields.io/github/last-commit/NQMVD/boss?&style=for-the-badge&color=FFB1C8&logoColor=D9E0EE&labelColor=292324)
-  <a href="https://github.com/NQMVD/boss?tab=readme-ov-file#details">
-	  <img alt="rust" src="https://img.shields.io/badge/Rust-fe7a15?style=for-the-badge&logo=rust&logoColor=white&logoSize=auto&labelColor=gray">
-  <a/>
-  <a href="https://github.com/NQMVD/boss?tab=readme-ov-file#support">
-  	<img alt="linux" src="https://img.shields.io/badge/Linux-E95420?style=for-the-badge&logo=linux&logoColor=white&logoSize=auto&labelColor=gray">
-	</a>
-  <a href="https://just.systems">
-    <img alt="just" src="https://img.shields.io/badge/just-white?style=for-the-badge&logo=just&color=black">
-  </a>
-  <br>
+</div>
+
+<div align="center"> 
+
+![](https://img.shields.io/github/last-commit/NQMVD/boss?&style=for-the-badge&color=FFB1C8&logoColor=D9E0EE&labelColor=292324)
+![](https://img.shields.io/badge/Rust-fe7a15?style=for-the-badge&logo=rust&logoColor=white&logoSize=auto&labelColor=gray)
+![](https://img.shields.io/badge/Linux-E95420?style=for-the-badge&logo=linux&logoColor=white&logoSize=auto&labelColor=gray)
+[![](https://img.shields.io/badge/just-white?style=for-the-badge&logo=just&color=black)](https://just.systems)
+</a>
+
+</div>
+
+<div align="center"> 
   <i>The boss of package management.</i>
 </div>
 
