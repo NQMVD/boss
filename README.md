@@ -6,7 +6,7 @@
 
 <div align="center"> 
 
-![](https://img.shields.io/github/last-commit/NQMVD/boss?&style=for-the-badge&color=FFB1C8&logoColor=D9E0EE&labelColor=292324)
+![](https://img.shields.io/github/last-commit/NQMVD/boss?&style=for-the-badge&color=b1ffb4&logoColor=D9E0EE&labelColor=292324)
 ![](https://img.shields.io/badge/Rust-fe7a15?style=for-the-badge&logo=rust&logoColor=white&logoSize=auto&labelColor=292324)
 ![](https://img.shields.io/badge/Linux-E95420?style=for-the-badge&logo=linux&logoColor=white&logoSize=auto&labelColor=292324)
 [![](https://img.shields.io/badge/just-white?style=for-the-badge&logo=just&color=black)](https://just.systems)
