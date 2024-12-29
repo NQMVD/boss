@@ -1,0 +1,4 @@
+- [ ] use clap-derive (instead of builder)
+- [ ] create types for managers and results
+- [ ] make every manager a feature?
+- [ ] dont use modules but classes?

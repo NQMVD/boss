@@ -20,13 +20,13 @@ debug pkg:
 
 # simple tests
 @test:
-    cargo run -- helix && echo "helix passed"; hr
-    cargo run -- zellij && echo "zellij passed"; hr
-    cargo run -- gum && echo "gum passed"; hr
-    cargo run -- gpaste && echo "gpaste passed"; hr
-    cargo run -- -q -i || echo "-qi passed"; hr
-    cargo run -- helix -i || echo "helix -i passed"; hr
-    cargo run -- " "|| echo "no args passed"; hr
+    cargo run -- helix && echo "✓ helix passed"; hr
+    cargo run -- zellij && echo "✓ zellij passed"; hr
+    cargo run -- gum && echo "✓ gum passed"; hr
+    cargo run -- gpaste && echo "✓ gpaste passed"; hr
+    cargo run -- -q -i || echo "✓ -qi passed"; hr
+    cargo run -- helix -i || echo "✓ helix -i passed"; hr
+    cargo run -- " "|| echo "✓ no args passed"; hr
     echo 'All Tests passed!'
 
 # increase the version and update the changelog
