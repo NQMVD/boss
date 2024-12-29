@@ -50,7 +50,7 @@ pub fn check_snap(package_name: &str) -> Result<PackageResult, String> {
     // 2. get info about package: newest version, description
     // ------------------------------------------------------
     // remove the first line
-    match lines.iter().next() {
+    match lines.first() {
         Some(_) => (),
         None => return Err("snap show output is empty".to_owned()),
     };
@@ -91,7 +91,7 @@ pub fn check_snap(package_name: &str) -> Result<PackageResult, String> {
     };
 
     // remove the first line (header)
-    match lines.iter().next() {
+    match lines.first() {
         Some(_) => (),
         None => return Err("snap show output is empty".to_owned()),
     };

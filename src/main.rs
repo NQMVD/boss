@@ -23,7 +23,7 @@ use std::collections::HashMap;
 
 // import the managers module
 mod managers;
-use managers::{check_apt, check_cargo, check_nix, check_snap};
+use managers::{check_apt, check_cargo, check_nix, check_snap, check_yay};
 
 // TODO enum of managers, maybe create a type for each manager for better handeling
 
@@ -151,7 +151,7 @@ fn get_check_functions() -> HashMap<&'static str, CheckFn> {
     let mut map: HashMap<&'static str, CheckFn> = HashMap::new();
 
     map.insert("apt", check_apt as CheckFn);
-    // map.insert("yay", check_yay as CheckFn);
+    map.insert("yay", check_yay as CheckFn);
     map.insert("snap", check_snap as CheckFn);
     map.insert("nix", check_nix as CheckFn);
     map.insert("cargo", check_cargo as CheckFn);
