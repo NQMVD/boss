@@ -109,18 +109,15 @@ fn get_installed_managers() -> Vec<&'static str> {
     let mut installed_managers = Vec::new();
 
     for manager in &managers {
-        match Command::new("which")
+        if let Ok(status) = Command::new("which")
             .arg(manager)
             .stdout(Stdio::null())
             .stderr(Stdio::null())
             .status()
         {
-            Ok(status) => {
-                if status.success() {
-                    installed_managers.push(*manager)
-                }
+            if status.success() {
+                installed_managers.push(*manager)
             }
-            Err(_) => {}
         }
     }
 
@@ -331,7 +328,7 @@ fn main() -> std::io::Result<()> {
     // }
 
     if stay_quiet {
-        let package_name = packages.get(0).unwrap().to_string();
+        let package_name = packages.first().unwrap().to_string();
         let check_functions = get_check_functions();
         let mut results = vec![];
 
@@ -380,7 +377,7 @@ fn main() -> std::io::Result<()> {
             }
         }
     } else {
-        packages.get(0).unwrap().to_string()
+        packages.first().unwrap().to_string()
     };
 
     cliclack::log::remark(format!(
