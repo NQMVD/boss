@@ -23,7 +23,7 @@ use std::collections::HashMap;
 
 // import the managers module
 mod managers;
-use managers::{check_apt, check_cargo, check_snap, check_yay};
+use managers::{check_apt, check_cargo, check_nix, check_snap};
 
 // TODO enum of managers, maybe create a type for each manager for better handeling
 
@@ -105,7 +105,7 @@ fn reduce_whitespace(s: String) -> String {
 
 /// Returns a list of installed package managers.
 fn get_installed_managers() -> Vec<&'static str> {
-    let managers = vec!["snap", "apt", "yay", "cargo", "go"];
+    let managers = vec!["snap", "apt", "yay", "cargo", "go", "nix"];
     let mut installed_managers = Vec::new();
 
     for manager in &managers {
@@ -154,8 +154,9 @@ fn get_check_functions() -> HashMap<&'static str, CheckFn> {
     let mut map: HashMap<&'static str, CheckFn> = HashMap::new();
 
     map.insert("apt", check_apt as CheckFn);
-    map.insert("yay", check_yay as CheckFn);
+    // map.insert("yay", check_yay as CheckFn);
     map.insert("snap", check_snap as CheckFn);
+    map.insert("nix", check_nix as CheckFn);
     map.insert("cargo", check_cargo as CheckFn);
 
     map

@@ -1,4 +1,4 @@
-jobs := `nproc --all`
+jobs := `nproc --all 2>/dev/null || sysctl -n hw.logicalcpu`
 
 _default:
     @just --list
@@ -7,7 +7,7 @@ _default:
 # install boss via cargo
 install:
     cargo build --release --jobs {{ jobs }}
-    cargo install --path .
+    cargo install --path . || (gum confirm 'Force install?' && cargo install --path . --force)
 
 # fetch git and update dependencies
 @update: && install
