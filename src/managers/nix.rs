@@ -72,7 +72,7 @@ pub fn check_nix(package_name: &str) -> Result<PackageResult, String> {
 
     let filtered_lines: Vec<String> = lines
         .iter()
-        .filter(|line| !line.is_empty() && line.contains(package_name) && line.contains("Name:"))
+        .filter(|line| !line.is_empty() && line.contains(package_name))
         .map(|line| line.to_string())
         .collect();
 
