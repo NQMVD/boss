@@ -1,5 +1,7 @@
 <div align="center">
-  <h1 href="https://github.com/NQMVD/boss">boss</h1>
+  <h1>
+    <a href="https://github.com/NQMVD/boss">boss<a/>
+  </h1>
   <h3></h3>
   <i>The boss of package management.</i>
   <h3></h3>
