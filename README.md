@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>boss</h1>
+  <h1 href="https://github.com/NQMVD/boss">boss</h1>
   <h3></h3>
   <i>The boss of package management.</i>
   <h3></h3>
@@ -8,6 +8,9 @@
 <div align="center">
 
 ![](https://img.shields.io/github/last-commit/NQMVD/boss?&style=for-the-badge&color=b1ffb4&logoColor=D9E0EE&labelColor=292324)
+[![Crates.io][crates-badge]][crates-url]
+[crates-badge]: https://img.shields.io/crates/v/tokio.svg
+[crates-url]: https://crates.io/crates/tokio
 ![](https://img.shields.io/badge/Rust-fe7a15?style=for-the-badge&logo=rust&logoColor=white&logoSize=auto&labelColor=292324)
 ![](https://img.shields.io/badge/Linux-E95420?style=for-the-badge&logo=linux&logoColor=white&logoSize=auto&labelColor=292324)
 [![](https://img.shields.io/badge/just-white?style=for-the-badge&logo=just&color=black)](https://just.systems)
@@ -16,11 +19,11 @@
 </div>
 
 <div align="center">
-  <img alt="boss shot" src="./.assets/boss_shot.png" />
+  <img alt="boss shot" src="https://github.com/NQMVD/boss/blob/main/.assets/boss_shot.png?raw_true" />
 </div>
 
 <div align="center">
-  <img alt="boss shot" src="./.assets/table_preview.png" />
+  <img alt="boss shot" src="https://github.com/NQMVD/boss/blob/main/.assets/table_preview.png?raw_true" />
 </div>
 
 ## Usage
@@ -48,25 +51,25 @@ finally implemented it will be as compact and clean as possible.
 
 ## helix query
 
-![default.tape](./.assets/tapes/default.gif)
+![default.tape](https://github.com/NQMVD/boss/blob/main/.assets/tapes/default.gif?raw=true)
 
 ## helix query --interactive
 
-![interactive.tape](./.assets/tapes/interactive.gif)
+![interactive.tape](https://github.com/NQMVD/boss/blob/main/.assets/tapes/interactive.gif?raw=true)
 
 ## shows latest version and installed version
 
-![newversion.tape](./.assets/tapes/newversion.gif)
+![newversion.tape](https://github.com/NQMVD/boss/blob/main/.assets/tapes/newversion.gif?raw=true)
 
 ## stays quiet for scripts
 
-![quiet.tape](./.assets/tapes/quiet.gif)
+![quiet.tape](https://github.com/NQMVD/boss/blob/main/.assets/tapes/quiet.gif?raw=true)
 
 </details>
 
 ## Roadmap
 
-> theres also a [mind map](./.assets/boss_map.jpg) that's a little more
+> theres also a [mind map](https://github.com/NQMVD/boss/blob/main/.assets/boss_map.jpg?raw=true) that's a little more
 > structured
 
 - [x] check all available package managers for a given package:
