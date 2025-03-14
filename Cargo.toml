@@ -2,7 +2,7 @@
 name = "boss"
 description = "◇ The boss of package management."
 version = "0.6.2"
-edition = "2021"
+edition = "2024"
 
 [dependencies]
 clap = { version = "4.5.7", features = ["cargo"] }

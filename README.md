@@ -23,7 +23,7 @@
 </div>
 
 <div align="center">
-  <img alt="boss shot" src="https://github.com/NQMVD/boss/blob/main/.assets/table_preview.png?raw_true" />
+  <img alt="table preview" src="https://github.com/NQMVD/boss/blob/main/.assets/table_preview.png?raw_true" />
 </div>
 
 ## Usage
