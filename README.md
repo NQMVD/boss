@@ -8,10 +8,8 @@
 <div align="center">
 
 ![](https://img.shields.io/github/last-commit/NQMVD/boss?&style=for-the-badge&color=b1ffb4&logoColor=D9E0EE&labelColor=292324)
-[![Crates.io][crates-badge]][crates-url]
-[crates-badge]: https://img.shields.io/crates/v/tokio.svg
-[crates-url]: https://crates.io/crates/tokio
 ![](https://img.shields.io/badge/Rust-fe7a15?style=for-the-badge&logo=rust&logoColor=white&logoSize=auto&labelColor=292324)
+[![](https://img.shields.io/crates/v/boss-cli.svg?style=for-the-badge&logo=rust&logoColor=white&logoSize=auto&labelColor=292324)](https://crates.io/crates/boss-cli)
 ![](https://img.shields.io/badge/Linux-E95420?style=for-the-badge&logo=linux&logoColor=white&logoSize=auto&labelColor=292324)
 [![](https://img.shields.io/badge/just-white?style=for-the-badge&logo=just&color=black)](https://just.systems)
 </a>
