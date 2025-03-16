@@ -19,11 +19,11 @@
 </div>
 
 <div align="center">
-  <img alt="boss shot" src="https://github.com/NQMVD/boss/blob/main/.assets/boss_shot.png?raw_true" />
+  <img alt="boss shot" src="https://github.com/NQMVD/boss/blob/main/.assets/boss_shot.png?raw=true" />
 </div>
 
 <div align="center">
-  <img alt="table preview" src="https://github.com/NQMVD/boss/blob/main/.assets/table_preview.png?raw_true" />
+  <img alt="table preview" src="https://github.com/NQMVD/boss/blob/main/.assets/table_preview.png?raw=true" />
 </div>
 
 ## Usage
